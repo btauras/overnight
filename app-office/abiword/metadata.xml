@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>gnome-office</herd>
+  <maintainer>
+    <email>nightmorph@gentoo.org</email>
+	<name>Joshua Saddler</name>
+  </maintainer>
+  <longdescription lang="en">
+    Abiword is a full-featured yet light and fast cross-platform word processor.
+  </longdescription>
+</pkgmetadata>
+

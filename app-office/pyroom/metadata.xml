@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>no-herd</herd>
+  <maintainer>
+    <email>nightmorph@gentoo.org</email>
+	<name>Joshua Saddler</name>
+  </maintainer>
+  <use>
+    <flag name="gnome">Uses gconf-python for the Gnome default fonts</flag>
+  </use>
+</pkgmetadata>

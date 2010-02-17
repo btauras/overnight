@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>media-optical</herd>
+  <maintainer>
+    <email>nightmorph@gentoo.org</email>
+    <name>Joshua Saddler</email>
+  </maintainer>
+  <longdescription lang="en">
+	Simpleburn is a minimalistic application for burning CDs and DVDs. It
+	requires only gtk+ and cdrtools.
+  </longdescription>
+</pkgmetadata>
+

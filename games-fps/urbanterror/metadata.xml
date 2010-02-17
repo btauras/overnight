@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>games</herd>
+  <maintainer>
+    <email>nightmorph@gentoo.org</email>
+	<name>Joshua Saddler</name>
+  <longdescription>
+	Urban Terror is a realistic terrorists vs. SWAT first-person shooter. It was
+	originally based on the Quake3 Arena code, and now is a standalone game
+	built on ioQuake3, a much enhanced version of the Quake3 engine by id
+	Software.
+  </longdescription>
+  <use>
+    <flag name="dedicated">Build the dedicated server</flag>
+	<flag name="openal">Uses OpenAL for audio output</flag>
+	<flag name="vorbis">Add support for high-quality Ogg Vorbis sounds</flag>
+  </use>
+</pkgmetadata>

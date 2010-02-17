@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>no-herd</herd>
+  <maintainer>
+    <email>nightmorph@gentoo.org</email>
+    <name>Joshua Saddler</name>
+  </maintainer>
+  <longdescription lang="en">
+	LogJam is a lightweight LiveJournal client. It normally uses gtk+, but can
+	be built without a GUI if desired. This is the updated version by
+	nightmorph. This version incorporates patches from Fedora and Gentoo.
+	Upstream LogJam is very slow about fixing things; it's almost
+	unmaintained.
+  </longdesription>
+</pkgmetadata>

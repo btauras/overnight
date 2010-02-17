@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>games</herd>
+  <maintainer>
+    <email>nightmorph@gentoo.org</email>
+	<name>Joshua Saddler</email>
+  </maintainer>
+  <use>
+    <flag name="editor">Include the level editor</flag>
+	<flag name="zip">Add support for zipped packages</flag>
+</pkgmetadata>

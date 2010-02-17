@@ -1,0 +1,1262 @@
+ Animated-icons/Makefile.in            |    2 +-
+ Animated-icons/src/Makefile.in        |    2 +-
+ Cairo-Penguin/Makefile.in             |    2 +-
+ Cairo-Penguin/src/Makefile.in         |    2 +-
+ Clipper/Makefile.in                   |    2 +-
+ Clipper/src/Makefile.in               |    2 +-
+ Dbus/Makefile.in                      |    2 +-
+ Dbus/src/Makefile.in                  |    2 +-
+ GMenu/Makefile.in                     |    2 +-
+ GMenu/src/Makefile.in                 |    2 +-
+ Toons/Makefile.in                     |    2 +-
+ Toons/src/Makefile.in                 |    2 +-
+ Xgamma/Makefile.in                    |    2 +-
+ Xgamma/src/Makefile.in                |    2 +-
+ alsaMixer/Makefile.in                 |    2 +-
+ alsaMixer/src/Makefile.in             |    2 +-
+ clock/Makefile.in                     |    2 +-
+ clock/src/Makefile.in                 |    2 +-
+ compiz-icon/Makefile.in               |    2 +-
+ compiz-icon/src/Makefile.in           |    2 +-
+ cpusage/Makefile.in                   |    2 +-
+ cpusage/src/Makefile.in               |    2 +-
+ desklet-rendering/Makefile.in         |    2 +-
+ desklet-rendering/src/Makefile.in     |    2 +-
+ dialog-rendering/Makefile.in          |    2 +-
+ dialog-rendering/src/Makefile.in      |    2 +-
+ dock-rendering/Makefile.in            |    2 +-
+ dock-rendering/src/Makefile.in        |    2 +-
+ drop-indicator/Makefile.in            |    2 +-
+ drop-indicator/src/Makefile.in        |    2 +-
+ dustbin/Makefile.in                   |    2 +-
+ dustbin/src/Makefile.in               |    2 +-
+ gnome-integration-old/Makefile.in     |    2 +-
+ gnome-integration-old/src/Makefile.in |    2 +-
+ gnome-integration/Makefile.in         |    2 +-
+ gnome-integration/src/Makefile.in     |    2 +-
+ icon-effect/Makefile.in               |    2 +-
+ icon-effect/src/Makefile.in           |    2 +-
+ illusion/Makefile.in                  |    2 +-
+ illusion/src/Makefile.in              |    2 +-
+ keyboard-indicator/Makefile.in        |    2 +-
+ keyboard-indicator/src/Makefile.in    |    2 +-
+ logout/Makefile.in                    |    2 +-
+ logout/src/Makefile.in                |    2 +-
+ mail/Makefile.in                      |    2 +-
+ mail/src/Makefile.in                  |    2 +-
+ motion-blur/Makefile.in               |    2 +-
+ motion-blur/src/Makefile.in           |    2 +-
+ nVidia/Makefile.in                    |    2 +-
+ nVidia/src/Makefile.in                |    2 +-
+ netspeed/Makefile.in                  |    2 +-
+ netspeed/src/Makefile.in              |    2 +-
+ powermanager/Makefile.in              |    2 +-
+ powermanager/src/Makefile.in          |    2 +-
+ quick-browser/Makefile.in             |    2 +-
+ quick-browser/src/Makefile.in         |    2 +-
+ rame/Makefile.in                      |    2 +-
+ rame/src/Makefile.in                  |    2 +-
+ rhythmbox/Makefile.in                 |    2 +-
+ rhythmbox/src/Makefile.in             |    2 +-
+ shortcuts/Makefile.in                 |    2 +-
+ shortcuts/src/Makefile.in             |    2 +-
+ show-mouse/Makefile.in                |    2 +-
+ show-mouse/src/Makefile.in            |    2 +-
+ showDesklets/Makefile.in              |    2 +-
+ showDesklets/src/Makefile.in          |    2 +-
+ showDesktop/Makefile.in               |    2 +-
+ showDesktop/src/Makefile.in           |    2 +-
+ slider/Makefile.in                    |    2 +-
+ slider/src/Makefile.in                |    2 +-
+ stack/Makefile.in                     |    2 +-
+ stack/src/Makefile.in                 |    2 +-
+ switcher/Makefile.in                  |    2 +-
+ switcher/src/Makefile.in              |    2 +-
+ systray/Makefile.in                   |    2 +-
+ systray/src/Makefile.in               |    2 +-
+ terminal/Makefile.in                  |    2 +-
+ terminal/src/Makefile.in              |    2 +-
+ tomboy/Makefile.in                    |    2 +-
+ tomboy/src/Makefile.in                |    2 +-
+ weather/Makefile.in                   |    2 +-
+ weather/src/Makefile.in               |    2 +-
+ weblets/Makefile.in                   |    2 +-
+ weblets/src/Makefile.in               |    2 +-
+ wifi/Makefile.in                      |    2 +-
+ wifi/src/Makefile.in                  |    2 +-
+ xfce-integration/Makefile.in          |    2 +-
+ xfce-integration/src/Makefile.in      |    2 +-
+ xmms/Makefile.in                      |    2 +-
+ xmms/src/Makefile.in                  |    2 +-
+ 90 files changed, 90 insertions(+), 90 deletions(-)
+
+diff --git a/Animated-icons/Makefile.in b/Animated-icons/Makefile.in
+index 8a161d6..7916a94 100644
+--- a/Animated-icons/Makefile.in
++++ b/Animated-icons/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/Animated-icons/src/Makefile.in b/Animated-icons/src/Makefile.in
+index bfdbd18..f6f8f79 100644
+--- a/Animated-icons/src/Makefile.in
++++ b/Animated-icons/src/Makefile.in
+@@ -475,7 +475,7 @@ libcd_Animated_icons_la_CFLAGS = \
+ 	-DGL_GLEXT_PROTOTYPES=\""1"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_Animated_icons_la_LIBADD = \
+diff --git a/Cairo-Penguin/Makefile.in b/Cairo-Penguin/Makefile.in
+index 59a49c5..eed996e 100644
+--- a/Cairo-Penguin/Makefile.in
++++ b/Cairo-Penguin/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/Cairo-Penguin/src/Makefile.in b/Cairo-Penguin/src/Makefile.in
+index a0ac217..47bd3ad 100644
+--- a/Cairo-Penguin/src/Makefile.in
++++ b/Cairo-Penguin/src/Makefile.in
+@@ -453,7 +453,7 @@ libcd_Cairo_Penguin_la_CFLAGS = \
+ 	-DGL_GLEXT_PROTOTYPES=\""1"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_Cairo_Penguin_la_LIBADD = \
+diff --git a/Clipper/Makefile.in b/Clipper/Makefile.in
+index d831b6c..3522e55 100644
+--- a/Clipper/Makefile.in
++++ b/Clipper/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/Clipper/src/Makefile.in b/Clipper/src/Makefile.in
+index 54b193d..37eaccf 100644
+--- a/Clipper/src/Makefile.in
++++ b/Clipper/src/Makefile.in
+@@ -446,7 +446,7 @@ libcd_Clipper_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.svg"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_Clipper_la_LIBADD = \
+diff --git a/Dbus/Makefile.in b/Dbus/Makefile.in
+index 325da4c..321ce0b 100644
+--- a/Dbus/Makefile.in
++++ b/Dbus/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/Dbus/src/Makefile.in b/Dbus/src/Makefile.in
+index 34dd97b..321ac94 100644
+--- a/Dbus/src/Makefile.in
++++ b/Dbus/src/Makefile.in
+@@ -443,7 +443,7 @@ libcd_Dbus_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.svg"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_Dbus_la_LIBADD = \
+diff --git a/GMenu/Makefile.in b/GMenu/Makefile.in
+index ba9755a..c0efeb0 100644
+--- a/GMenu/Makefile.in
++++ b/GMenu/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/GMenu/src/Makefile.in b/GMenu/src/Makefile.in
+index dd75a73..89af464 100644
+--- a/GMenu/src/Makefile.in
++++ b/GMenu/src/Makefile.in
+@@ -462,7 +462,7 @@ libcd_GMenu_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.svg"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_GMenu_la_LIBADD = \
+diff --git a/Toons/Makefile.in b/Toons/Makefile.in
+index 8b7fb57..72dd588 100644
+--- a/Toons/Makefile.in
++++ b/Toons/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/Toons/src/Makefile.in b/Toons/src/Makefile.in
+index 4aaacca..9e66af5 100644
+--- a/Toons/src/Makefile.in
++++ b/Toons/src/Makefile.in
+@@ -450,7 +450,7 @@ libcd_Toons_la_CFLAGS = \
+ 	-DGL_GLEXT_PROTOTYPES=\""1"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_Toons_la_LIBADD = \
+diff --git a/Xgamma/Makefile.in b/Xgamma/Makefile.in
+index ecf8a84..0400dc4 100644
+--- a/Xgamma/Makefile.in
++++ b/Xgamma/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/Xgamma/src/Makefile.in b/Xgamma/src/Makefile.in
+index a8d1785..e2c5ba4 100644
+--- a/Xgamma/src/Makefile.in
++++ b/Xgamma/src/Makefile.in
+@@ -448,7 +448,7 @@ libcd_Xgamma_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.png"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_Xgamma_la_LIBADD = \
+diff --git a/alsaMixer/Makefile.in b/alsaMixer/Makefile.in
+index 6aa732f..5245c37 100644
+--- a/alsaMixer/Makefile.in
++++ b/alsaMixer/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/alsaMixer/src/Makefile.in b/alsaMixer/src/Makefile.in
+index 8130ffb..78d9ba4 100644
+--- a/alsaMixer/src/Makefile.in
++++ b/alsaMixer/src/Makefile.in
+@@ -452,7 +452,7 @@ libcd_AlsaMixer_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.png"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_AlsaMixer_la_LIBADD = \
+diff --git a/clock/Makefile.in b/clock/Makefile.in
+index 7aa79d1..0d36def 100644
+--- a/clock/Makefile.in
++++ b/clock/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/clock/src/Makefile.in b/clock/src/Makefile.in
+index c610e03..f6dbac9 100644
+--- a/clock/src/Makefile.in
++++ b/clock/src/Makefile.in
+@@ -453,7 +453,7 @@ libcd_clock_la_CFLAGS = \
+ 	-DGL_GLEXT_PROTOTYPES=\""1"\"\
+ 	-std=c99\
+ 	 -Wall\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_clock_la_LIBADD = \
+diff --git a/compiz-icon/Makefile.in b/compiz-icon/Makefile.in
+index b8ff540..ea35696 100644
+--- a/compiz-icon/Makefile.in
++++ b/compiz-icon/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/compiz-icon/src/Makefile.in b/compiz-icon/src/Makefile.in
+index 102cddb..974135e 100644
+--- a/compiz-icon/src/Makefile.in
++++ b/compiz-icon/src/Makefile.in
+@@ -450,7 +450,7 @@ libcd_compiz_icon_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.png"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_compiz_icon_la_LIBADD = \
+diff --git a/cpusage/Makefile.in b/cpusage/Makefile.in
+index 80231e5..83c384d 100644
+--- a/cpusage/Makefile.in
++++ b/cpusage/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/cpusage/src/Makefile.in b/cpusage/src/Makefile.in
+index efe8386..1b10c18 100644
+--- a/cpusage/src/Makefile.in
++++ b/cpusage/src/Makefile.in
+@@ -446,7 +446,7 @@ libcd_cpusage_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.png"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_cpusage_la_LIBADD = \
+diff --git a/desklet-rendering/Makefile.in b/desklet-rendering/Makefile.in
+index 1c39df0..4fb682a 100644
+--- a/desklet-rendering/Makefile.in
++++ b/desklet-rendering/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/desklet-rendering/src/Makefile.in b/desklet-rendering/src/Makefile.in
+index 351dfc8..44d5eec 100644
+--- a/desklet-rendering/src/Makefile.in
++++ b/desklet-rendering/src/Makefile.in
+@@ -463,7 +463,7 @@ libcd_desklet_rendering_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.svg"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-Wno-unused-parameter
+ #	-g -ggdb -W -Wall
+diff --git a/dialog-rendering/Makefile.in b/dialog-rendering/Makefile.in
+index 6bacbea..64cc0f7 100644
+--- a/dialog-rendering/Makefile.in
++++ b/dialog-rendering/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/dialog-rendering/src/Makefile.in b/dialog-rendering/src/Makefile.in
+index 8ed81d5..3f7d292 100644
+--- a/dialog-rendering/src/Makefile.in
++++ b/dialog-rendering/src/Makefile.in
+@@ -461,7 +461,7 @@ libcd_dialog_rendering_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.svg"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_dialog_rendering_la_LIBADD = \
+diff --git a/dock-rendering/Makefile.in b/dock-rendering/Makefile.in
+index f2e5ac6..9deba83 100644
+--- a/dock-rendering/Makefile.in
++++ b/dock-rendering/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/dock-rendering/src/Makefile.in b/dock-rendering/src/Makefile.in
+index b75011b..4417ed0 100644
+--- a/dock-rendering/src/Makefile.in
++++ b/dock-rendering/src/Makefile.in
+@@ -465,7 +465,7 @@ libcd_rendering_la_CFLAGS = \
+ 	-DGL_GLEXT_PROTOTYPES=\""1"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-Wno-unused-parameter
+ #	-g -ggdb -W -Wall
+diff --git a/drop-indicator/Makefile.in b/drop-indicator/Makefile.in
+index 8274cbb..4e04854 100644
+--- a/drop-indicator/Makefile.in
++++ b/drop-indicator/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/drop-indicator/src/Makefile.in b/drop-indicator/src/Makefile.in
+index 55d52c9..e9cb56e 100644
+--- a/drop-indicator/src/Makefile.in
++++ b/drop-indicator/src/Makefile.in
+@@ -451,7 +451,7 @@ libcd_drop_indicator_la_CFLAGS = \
+         -DGL_GLEXT_PROTOTYPES=\""1"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_drop_indicator_la_LIBADD = \
+diff --git a/dustbin/Makefile.in b/dustbin/Makefile.in
+index e74e636..6eca065 100644
+--- a/dustbin/Makefile.in
++++ b/dustbin/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/dustbin/src/Makefile.in b/dustbin/src/Makefile.in
+index f26d2ec..705d9c1 100644
+--- a/dustbin/src/Makefile.in
++++ b/dustbin/src/Makefile.in
+@@ -447,7 +447,7 @@ libcd_dustbin_la_CFLAGS = \
+ 	-DMY_APPLET_DOCK_VERSION=\""$(dock_version)"\"\
+ 	-DMY_APPLET_ICON_FILE=\""icon.png"\"\
+ 	-std=c99\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_dustbin_la_LIBADD = \
+diff --git a/gnome-integration-old/Makefile.in b/gnome-integration-old/Makefile.in
+index 65b5bd3..9368f07 100644
+--- a/gnome-integration-old/Makefile.in
++++ b/gnome-integration-old/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/gnome-integration-old/src/Makefile.in b/gnome-integration-old/src/Makefile.in
+index 4416c28..85d44b8 100644
+--- a/gnome-integration-old/src/Makefile.in
++++ b/gnome-integration-old/src/Makefile.in
+@@ -447,7 +447,7 @@ libcd_gnome_integration_old_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.svg"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_gnome_integration_old_la_LIBADD = \
+diff --git a/gnome-integration/Makefile.in b/gnome-integration/Makefile.in
+index f24b344..0a93cb0 100644
+--- a/gnome-integration/Makefile.in
++++ b/gnome-integration/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/gnome-integration/src/Makefile.in b/gnome-integration/src/Makefile.in
+index 1db9945..c6eb497 100644
+--- a/gnome-integration/src/Makefile.in
++++ b/gnome-integration/src/Makefile.in
+@@ -447,7 +447,7 @@ libcd_gnome_integration_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.png"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_gnome_integration_la_LIBADD = \
+diff --git a/icon-effect/Makefile.in b/icon-effect/Makefile.in
+index 081e0e1..9bddad0 100644
+--- a/icon-effect/Makefile.in
++++ b/icon-effect/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/icon-effect/src/Makefile.in b/icon-effect/src/Makefile.in
+index 46e3359..85c2cb6 100644
+--- a/icon-effect/src/Makefile.in
++++ b/icon-effect/src/Makefile.in
+@@ -461,7 +461,7 @@ libcd_icon_effect_la_CFLAGS = \
+         -DGL_GLEXT_PROTOTYPES=\""1"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_icon_effect_la_LIBADD = \
+diff --git a/illusion/Makefile.in b/illusion/Makefile.in
+index 720ead9..d424246 100644
+--- a/illusion/Makefile.in
++++ b/illusion/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/illusion/src/Makefile.in b/illusion/src/Makefile.in
+index 021e5cd..933ce26 100644
+--- a/illusion/src/Makefile.in
++++ b/illusion/src/Makefile.in
+@@ -461,7 +461,7 @@ libcd_illusion_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.svg"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_illusion_la_LIBADD = \
+diff --git a/keyboard-indicator/Makefile.in b/keyboard-indicator/Makefile.in
+index 5b5f8cf..7b915da 100644
+--- a/keyboard-indicator/Makefile.in
++++ b/keyboard-indicator/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/keyboard-indicator/src/Makefile.in b/keyboard-indicator/src/Makefile.in
+index 06372a2..7692a37 100644
+--- a/keyboard-indicator/src/Makefile.in
++++ b/keyboard-indicator/src/Makefile.in
+@@ -455,7 +455,7 @@ libcd_keyboard_indicator_la_CFLAGS = \
+ 	-DGL_GLEXT_PROTOTYPES=\""1"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_keyboard_indicator_la_LIBADD = \
+diff --git a/logout/Makefile.in b/logout/Makefile.in
+index 2f95ebe..0d85f98 100644
+--- a/logout/Makefile.in
++++ b/logout/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/logout/src/Makefile.in b/logout/src/Makefile.in
+index d84d2b8..f3e1784 100644
+--- a/logout/src/Makefile.in
++++ b/logout/src/Makefile.in
+@@ -443,7 +443,7 @@ libcd_logout_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.svg"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_logout_la_LIBADD = \
+diff --git a/mail/Makefile.in b/mail/Makefile.in
+index c03818f..55c61cb 100644
+--- a/mail/Makefile.in
++++ b/mail/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/mail/src/Makefile.in b/mail/src/Makefile.in
+index 678452f..10b4275 100644
+--- a/mail/src/Makefile.in
++++ b/mail/src/Makefile.in
+@@ -458,7 +458,7 @@ libcd_mail_la_CFLAGS = \
+ 	-g -ggdb -W
+ 
+ #	-fgnu89-inline\
+-#	-O3
++#	
+ libcd_mail_la_LIBADD = \
+ 	$(PACKAGE_LIBS) $(MAIL_PACKAGE_LIBS) -lm
+ 
+diff --git a/motion-blur/Makefile.in b/motion-blur/Makefile.in
+index b4c590d..c4d36a0 100644
+--- a/motion-blur/Makefile.in
++++ b/motion-blur/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/motion-blur/src/Makefile.in b/motion-blur/src/Makefile.in
+index fe25ced..a450e76 100644
+--- a/motion-blur/src/Makefile.in
++++ b/motion-blur/src/Makefile.in
+@@ -444,7 +444,7 @@ libcd_motion_blur_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.png"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_motion_blur_la_LIBADD = \
+diff --git a/nVidia/Makefile.in b/nVidia/Makefile.in
+index 86666b4..fa106f6 100644
+--- a/nVidia/Makefile.in
++++ b/nVidia/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/nVidia/src/Makefile.in b/nVidia/src/Makefile.in
+index a065060..d29021e 100644
+--- a/nVidia/src/Makefile.in
++++ b/nVidia/src/Makefile.in
+@@ -449,7 +449,7 @@ libcd_nVidia_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.svg"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_nVidia_la_LIBADD = \
+diff --git a/netspeed/Makefile.in b/netspeed/Makefile.in
+index ef454b7..c8dd401 100644
+--- a/netspeed/Makefile.in
++++ b/netspeed/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/netspeed/src/Makefile.in b/netspeed/src/Makefile.in
+index 03f16ba..9273f94 100644
+--- a/netspeed/src/Makefile.in
++++ b/netspeed/src/Makefile.in
+@@ -448,7 +448,7 @@ libcd_netspeed_la_CFLAGS = \
+ 	-DCD_APPLET_MULTI_INSTANCE=\"1\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_netspeed_la_LIBADD = \
+diff --git a/powermanager/Makefile.in b/powermanager/Makefile.in
+index 27458d3..d990db9 100644
+--- a/powermanager/Makefile.in
++++ b/powermanager/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/powermanager/src/Makefile.in b/powermanager/src/Makefile.in
+index 2be7d22..ea6417e 100644
+--- a/powermanager/src/Makefile.in
++++ b/powermanager/src/Makefile.in
+@@ -451,7 +451,7 @@ libcd_powermanager_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.png"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_powermanager_la_LIBADD = \
+diff --git a/quick-browser/Makefile.in b/quick-browser/Makefile.in
+index e53a953..16409a8 100644
+--- a/quick-browser/Makefile.in
++++ b/quick-browser/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/quick-browser/src/Makefile.in b/quick-browser/src/Makefile.in
+index c7130c2..8d6ffa0 100644
+--- a/quick-browser/src/Makefile.in
++++ b/quick-browser/src/Makefile.in
+@@ -449,7 +449,7 @@ libcd_quick_browser_la_CFLAGS = \
+ 	-DCD_APPLET_MULTI_INSTANCE=\"1\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_quick_browser_la_LIBADD = \
+diff --git a/rame/Makefile.in b/rame/Makefile.in
+index b6f45d6..ab072ca 100644
+--- a/rame/Makefile.in
++++ b/rame/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/rame/src/Makefile.in b/rame/src/Makefile.in
+index ba2b12a..11fc262 100644
+--- a/rame/src/Makefile.in
++++ b/rame/src/Makefile.in
+@@ -445,7 +445,7 @@ libcd_rame_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.png"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_rame_la_LIBADD = \
+diff --git a/rhythmbox/Makefile.in b/rhythmbox/Makefile.in
+index c9a6916..6ceb0af 100644
+--- a/rhythmbox/Makefile.in
++++ b/rhythmbox/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/rhythmbox/src/Makefile.in b/rhythmbox/src/Makefile.in
+index 1d85be3..dfcf2dc 100644
+--- a/rhythmbox/src/Makefile.in
++++ b/rhythmbox/src/Makefile.in
+@@ -453,7 +453,7 @@ libcd_rhythmbox_la_CFLAGS = \
+ 	-DGL_GLEXT_PROTOTYPES=\""1"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_rhythmbox_la_LIBADD = \
+diff --git a/shortcuts/Makefile.in b/shortcuts/Makefile.in
+index e94010f..6207def 100644
+--- a/shortcuts/Makefile.in
++++ b/shortcuts/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/shortcuts/src/Makefile.in b/shortcuts/src/Makefile.in
+index 51310bf..6a1c9dc 100644
+--- a/shortcuts/src/Makefile.in
++++ b/shortcuts/src/Makefile.in
+@@ -454,7 +454,7 @@ libcd_shortcuts_la_CFLAGS = \
+ 	-DCD_APPLET_MULTI_INSTANCE=\"1\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_shortcuts_la_LIBADD = \
+diff --git a/show-mouse/Makefile.in b/show-mouse/Makefile.in
+index edbeec4..67f01e8 100644
+--- a/show-mouse/Makefile.in
++++ b/show-mouse/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/show-mouse/src/Makefile.in b/show-mouse/src/Makefile.in
+index 1d87f37..45b6886 100644
+--- a/show-mouse/src/Makefile.in
++++ b/show-mouse/src/Makefile.in
+@@ -446,7 +446,7 @@ libcd_show_mouse_la_CFLAGS = \
+         -DGL_GLEXT_PROTOTYPES=\""1"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_show_mouse_la_LIBADD = \
+diff --git a/showDesklets/Makefile.in b/showDesklets/Makefile.in
+index e693d03..aff0503 100644
+--- a/showDesklets/Makefile.in
++++ b/showDesklets/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/showDesklets/src/Makefile.in b/showDesklets/src/Makefile.in
+index 27919f0..b31b7de 100644
+--- a/showDesklets/src/Makefile.in
++++ b/showDesklets/src/Makefile.in
+@@ -445,7 +445,7 @@ libcd_showDesklets_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.png"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_showDesklets_la_LIBADD = \
+diff --git a/showDesktop/Makefile.in b/showDesktop/Makefile.in
+index 40d9fe6..88dc3aa 100644
+--- a/showDesktop/Makefile.in
++++ b/showDesktop/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/showDesktop/src/Makefile.in b/showDesktop/src/Makefile.in
+index f4896ff..d966392 100644
+--- a/showDesktop/src/Makefile.in
++++ b/showDesktop/src/Makefile.in
+@@ -444,7 +444,7 @@ libcd_showDesktop_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.png"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_showDesktop_la_LIBADD = \
+diff --git a/slider/Makefile.in b/slider/Makefile.in
+index c2e0ac1..f28c041 100644
+--- a/slider/Makefile.in
++++ b/slider/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/slider/src/Makefile.in b/slider/src/Makefile.in
+index 2d17f25..8a8b8f5 100644
+--- a/slider/src/Makefile.in
++++ b/slider/src/Makefile.in
+@@ -455,7 +455,7 @@ libcd_slider_la_CFLAGS = \
+ 	-DGL_GLEXT_PROTOTYPES=\""1"\"\
+ 	-Werror-implicit-function-declaration\
+ 	-std=c99\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_slider_la_LIBADD = \
+diff --git a/stack/Makefile.in b/stack/Makefile.in
+index 1238839..bb93129 100644
+--- a/stack/Makefile.in
++++ b/stack/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/stack/src/Makefile.in b/stack/src/Makefile.in
+index 580dc66..0c01d16 100644
+--- a/stack/src/Makefile.in
++++ b/stack/src/Makefile.in
+@@ -453,7 +453,7 @@ libcd_stack_la_CFLAGS = \
+ 	-DCD_APPLET_MULTI_INSTANCE=\"1\"\
+ 	-Werror-implicit-function-declaration\
+ 	-std=c99\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_stack_la_LIBADD = \
+diff --git a/switcher/Makefile.in b/switcher/Makefile.in
+index eaba6ce..1a9315d 100644
+--- a/switcher/Makefile.in
++++ b/switcher/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/switcher/src/Makefile.in b/switcher/src/Makefile.in
+index 26d312f..69eb7ff 100644
+--- a/switcher/src/Makefile.in
++++ b/switcher/src/Makefile.in
+@@ -453,7 +453,7 @@ libcd_switcher_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""workspaces.svg"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_switcher_la_LIBADD = \
+diff --git a/systray/Makefile.in b/systray/Makefile.in
+index aa3e353..edfbf74 100644
+--- a/systray/Makefile.in
++++ b/systray/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/systray/src/Makefile.in b/systray/src/Makefile.in
+index 8c074f8..dd2e82a 100644
+--- a/systray/src/Makefile.in
++++ b/systray/src/Makefile.in
+@@ -452,7 +452,7 @@ libcd_systray_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.png"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall -W -Werror
+ libcd_systray_la_LIBADD = \
+diff --git a/terminal/Makefile.in b/terminal/Makefile.in
+index b2426c6..830b8ce 100644
+--- a/terminal/Makefile.in
++++ b/terminal/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/terminal/src/Makefile.in b/terminal/src/Makefile.in
+index dfe56d0..294b9ae 100644
+--- a/terminal/src/Makefile.in
++++ b/terminal/src/Makefile.in
+@@ -452,7 +452,7 @@ libcd_terminal_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.png"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall  -W -Werror
+ libcd_terminal_la_LIBADD = \
+diff --git a/tomboy/Makefile.in b/tomboy/Makefile.in
+index cde43af..9e719ce 100644
+--- a/tomboy/Makefile.in
++++ b/tomboy/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/tomboy/src/Makefile.in b/tomboy/src/Makefile.in
+index d453505..693ff54 100644
+--- a/tomboy/src/Makefile.in
++++ b/tomboy/src/Makefile.in
+@@ -448,7 +448,7 @@ libcd_tomboy_la_CFLAGS = \
+ 	-DMY_APPLET_DOCK_VERSION=\""$(dock_version)"\"\
+ 	-DMY_APPLET_ICON_FILE=\""icon.png"\"\
+ 	-std=c99\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ #-Werror-implicit-function-declaration
+diff --git a/weather/Makefile.in b/weather/Makefile.in
+index 5309a32..21732b9 100644
+--- a/weather/Makefile.in
++++ b/weather/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/weather/src/Makefile.in b/weather/src/Makefile.in
+index 1f26a5e..ff7dc3f 100644
+--- a/weather/src/Makefile.in
++++ b/weather/src/Makefile.in
+@@ -450,7 +450,7 @@ libcd_weather_la_CFLAGS = \
+ 	-DCD_APPLET_MULTI_INSTANCE=\"1\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_weather_la_LIBADD = \
+diff --git a/weblets/Makefile.in b/weblets/Makefile.in
+index 5f7ef47..e79c1f4 100644
+--- a/weblets/Makefile.in
++++ b/weblets/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/weblets/src/Makefile.in b/weblets/src/Makefile.in
+index 74d5cdd..57913f6 100644
+--- a/weblets/src/Makefile.in
++++ b/weblets/src/Makefile.in
+@@ -764,7 +764,7 @@ uninstall-am: uninstall-libLTLIBRARIES
+  #dnl Process this file with automake to produce Makefile.in
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ # Tell versions [3.59,3.63) of GNU make to not export all variables.
+ # Otherwise a system limit (for SysV at least) may be exceeded.
+ .NOEXPORT:
+diff --git a/wifi/Makefile.in b/wifi/Makefile.in
+index c0f150e..d73866c 100644
+--- a/wifi/Makefile.in
++++ b/wifi/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/wifi/src/Makefile.in b/wifi/src/Makefile.in
+index db3b004..e8ab121 100644
+--- a/wifi/src/Makefile.in
++++ b/wifi/src/Makefile.in
+@@ -448,7 +448,7 @@ libcd_wifi_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.png"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_wifi_la_LIBADD = \
+diff --git a/xfce-integration/Makefile.in b/xfce-integration/Makefile.in
+index f543c5b..64fdcd1 100644
+--- a/xfce-integration/Makefile.in
++++ b/xfce-integration/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/xfce-integration/src/Makefile.in b/xfce-integration/src/Makefile.in
+index a6f5711..93201cd 100644
+--- a/xfce-integration/src/Makefile.in
++++ b/xfce-integration/src/Makefile.in
+@@ -447,7 +447,7 @@ libcd_xfce_integration_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.png"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_xfce_integration_la_LIBADD = \
+diff --git a/xmms/Makefile.in b/xmms/Makefile.in
+index 1b6f981..8223a10 100644
+--- a/xmms/Makefile.in
++++ b/xmms/Makefile.in
+@@ -71,7 +71,7 @@ CATALOGS = @CATALOGS@
+ CATOBJEXT = @CATOBJEXT@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+-CFLAGS = @CFLAGS@
++CFLAGS = 
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CXX = @CXX@
+diff --git a/xmms/src/Makefile.in b/xmms/src/Makefile.in
+index 788e504..c205be2 100644
+--- a/xmms/src/Makefile.in
++++ b/xmms/src/Makefile.in
+@@ -448,7 +448,7 @@ libcd_xmms_la_CFLAGS = \
+ 	-DMY_APPLET_ICON_FILE=\""icon.png"\"\
+ 	-std=c99\
+ 	-Werror-implicit-function-declaration\
+-	-O3
++	
+ 
+ #	-g -ggdb -W -Wall
+ libcd_xmms_la_LIBADD = \

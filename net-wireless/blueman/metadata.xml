@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<herd>mobile</herd>
+	<maintainer>
+		<email>nightmorph@gentoo.org</email>
+		<name>Joshua Saddler</name>
+	</maintainer>
+	<use>
+		<flag name="network">Add functionality to setup (host) PAN connections using either <pkg>net-dns/dnsmasq</pkg> or <pkg>net-misc/dhcp</pkg></flag>
+	</use>
+	<longdescription lang="en">
+	  A simple and intuitive Bluetooth manager built on gtk+. This version
+	  can use any libnotify provider, unlike the Gentoo ebuild that hardcodes a
+	  specific package.
+	</longdescription>
+</pkgmetadata>

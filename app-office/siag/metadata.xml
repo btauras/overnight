@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>no-herd</herd>
+  <maintainer>
+    <email>nightmorph@gentoo.org</email>
+	<name>Joshua Saddler</name>
+  </maintainer>
+  <longdescription lang="en">
+    Siag is an old-school office package that needs only some X11 libs. It
+	doesn't rely on modern graphical toolkits like gtk+ or Qt, so it is well
+	suited for old, less capable hardware. You should be aware, though, that it
+	is unmaintained, and it may compile just fine, but it might not run. The
+	modern X11 software stack has simply passed Siag by, so the way Siag wants
+	to do things may not work on your system.
+  </longdescription>
+  <use>
+    <flag name="ccmath">Adds support for a math library to help with various calculations</flag>
+	<flag name="images">Adds image support</flag>
+	<flag name="python">Enables python commands and expressions</flag>
+  </use>
+</pkgmetadata>
