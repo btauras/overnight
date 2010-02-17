@@ -1,5 +1,5 @@
 This overlay contains random ebuilds written, adapted, or otherwise hacked up by
-me. I usually code stuff here, then sent it to Gentoo's Bugzilla for eventual
+me. I usually code stuff here, then send it to Gentoo's Bugzilla for eventual
 inclusion into Portage.
 
 Note that not everything in here may compile, or if it does, it may not install.
