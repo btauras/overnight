@@ -25,7 +25,7 @@ RDEPEND="dev-libs/dbus-glib
 	gtk? ( x11-libs/gtk+:2 )
 	gtkhtml? ( gnome-extra/gtkhtml:3.14 )
 	spell? ( app-text/gtkspell )
-	sqlite? ( >=dev-db/sqlite:3 )
+	sqlite? ( dev-db/sqlite:3 )
 	svg? ( gnome-base/librsvg )"
 
 DEPEND="${RDEPEND}
