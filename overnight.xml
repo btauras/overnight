@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
-<?xml version="1.0" encoding="UTF-8"?>
 <layman>
   <overlay 
     type="git"
