@@ -28,7 +28,11 @@ src_compile() {
 
 src_install() {
 	emake DESTDIR="${D}" PREFIX=/usr install || die "emake install failed"
-	make_desktop_entry ${PN} "Fotoxx" /usr/share/${PN}/icons/${PN}.png "Application;Graphics;2DGraphics;"
+	emake DESTDIR="${D}" PREFIX=/usr manpage || die "emake manpage failed"
+		make_desktop_entry ${PN} "Fotoxx" /usr/share/${PN}/icons/${PN}.png "Application;Graphics;2DGraphics;"
+	dodoc doc/CHANGES doc/README doc/TRANSLATIONS
+	dohtml doc/*.html
+	rm -r ${D}/usr/share/doc/fotoxx/
 }
 
 pkg_postinst() {
