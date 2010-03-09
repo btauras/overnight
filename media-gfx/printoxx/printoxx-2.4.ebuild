@@ -24,3 +24,9 @@ src_install() {
 	emake DESTDIR="${D}" PREFIX=/usr install || die "emake install failed"
 	make_desktop_entry ${PN} "Printoxx" /usr/share/${PN}/icons/${PN}.png "Application;Graphics;2DGraphics;"
 }
+
+pkg_postinst() {
+	elog ""
+	elog "For easy photo editing, try media-gfx/fotoxx"
+	elog ""
+}
