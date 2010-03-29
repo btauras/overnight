@@ -27,7 +27,7 @@ DEPEND="${CDEPEND}
 RDEPEND="${CDEPEND}
 	>=app-mobilephone/obex-data-server-0.4.4
 	policykit? ( gnome-extra/policykit-gnome )
-	|| ( x11-misc/notification-daemon x11-misc/xfce4-notifyd )
+	|| ( x11-misc/notification-daemon xfce-extra/xfce4-notifyd )
 	sys-apps/dbus
 	dev-python/pygtk
 	dev-python/notify-python
