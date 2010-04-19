@@ -18,6 +18,7 @@
 	<flag name="gnome">Adds Gnome media keys support, so you can control Decibel
 	using hotkeys.
     </flag>
+  </use>
   <use>
 	<flag name="gnome-keyring">Adds support for storing your Last.fm password
 	using gnome-keyring.</flag>
