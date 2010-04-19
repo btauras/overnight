@@ -9,7 +9,7 @@ SRC_URI="http://decibel.silent-blade.org/uploads/Main/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="amd64 ppc ppc64 ~sparc x86"
-IUSE="aac cdda gnome gnome-keyring libnotify musepack"
+IUSE="aac cdda gnome gnome-keyring libnotify musepack wavpack"
 
 RDEPEND="media-libs/mutagen
 	dev-python/dbus-python
