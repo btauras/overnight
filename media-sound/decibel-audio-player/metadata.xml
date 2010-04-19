@@ -15,6 +15,11 @@
 		to use by means of a very clean and user friendly interface.
 	</longdescription>
   <use>
-    <flag name="gnome-keyring">Adds support for storing your Last.fm password using gnome-keyring.</flag>
+	<flag name="gnome">Adds Gnome media keys support, so you can control Decibel
+	using hotkeys.
+    </flag>
+  <use>
+	<flag name="gnome-keyring">Adds support for storing your Last.fm password
+	using gnome-keyring.</flag>
   </use>
 </pkgmetadata>

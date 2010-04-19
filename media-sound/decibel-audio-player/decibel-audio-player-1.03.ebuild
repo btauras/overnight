@@ -11,7 +11,6 @@ SLOT="0"
 KEYWORDS="amd64 ppc ppc64 ~sparc x86"
 IUSE="aac cdda gnome gnome-keyring libnotify musepack"
 
-# gnome use flag controls the gnome media keys integration
 RDEPEND="media-libs/mutagen
 	dev-python/dbus-python
 	dev-python/gst-python
