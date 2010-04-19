@@ -23,7 +23,8 @@ RDEPEND="media-libs/mutagen
 	gnome? ( dev-python/gnome-python-base )
 	gnome-keyring? ( dev-python/gnome-keyring-python )
 	libnotify? ( dev-python/notify-python )
-	musepack? ( media-plugins/gst-plugins-musepack )"
+	musepack? ( media-plugins/gst-plugins-musepack )
+	wavpack? ( media-plugins/gst-plugins-wavpack )"
 DEPEND="sys-devel/gettext"
 
 src_install() {
