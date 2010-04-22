@@ -1,8 +1,8 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="1"
+EAPI="2"
 
 DESCRIPTION="A lightweight music manager"
 HOMEPAGE="https://sites.google.com/site/consonancemanager/"
@@ -28,11 +28,8 @@ DEPEND="dev-libs/dbus-glib
 	x11-libs/libnotify"
 RDEPEND="${DEPEND}"
 
-src_compile() {
-	econf || die "econf failed"
-	emake || die "emake failed"
-}
-
 src_install() {
 	emake install DESTDIR="${D}" || die "emake install failed"
+	dodoc ChangeLog FAQ README
+	rm -rf "${D}"/usr/share/consonance/doc
 }
