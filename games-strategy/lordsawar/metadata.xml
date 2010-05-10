@@ -8,5 +8,6 @@
   </maintainer>
   <use>
     <flag name="editor">Include the level editor</flag>
+	<flag name="pbm">Add support for play-by-mail</flag>
 	<flag name="zip">Add support for zipped packages</flag>
 </pkgmetadata>

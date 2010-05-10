@@ -1,23 +1,23 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/games-strategy/freelords/freelords-0.3.8.ebuild,v 1.2 2007/05/29 17:00:02 nyhm Exp $
+# $Header: $
 
-EAPI=2
+EAPI="2"
 
 inherit eutils games
 
-MY_P="${PN}-0.1.7-pre1"
 DESCRIPTION="A free clone of WarLords II"
 HOMEPAGE="http://www.lordsawar.com/"
-SRC_URI="http://download.savannah.gnu.org/releases/${PN}/${MY_P}.tar.gz"
+SRC_URI="http://download.savannah.gnu.org/releases/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86"
-IUSE="editor nls pbm zip"
+IUSE="editor nls pbm +sound"
 
 RDEPEND=">=dev-cpp/gtkmm-2.4
 	>=dev-cpp/libglademm-2.4
+	dev-libs/libtar
 	media-libs/sdl-image
 	sound? ( media-libs/sdl-mixer[vorbis] )
 	>=net-libs/gnet-2
@@ -28,17 +28,15 @@ DEPEND="${RDEPEND}
 	dev-libs/boost
 	nls? ( sys-devel/gettext )"
 
-S="${WORKDIR}/${MY_P}/"
-
 src_configure() {
 	egamesconf \
 		--disable-dependency-tracking \
 		--disable-sdltest \
 		$(use_enable editor) \
 		$(use_enable nls) \
-		$(use_enable zip zipping) \
 		$(use_enable pbm) \
-		|| die
+		$(use_enable sound) \
+		|| die "something USE-related failed"
 }
 
 src_install() {
