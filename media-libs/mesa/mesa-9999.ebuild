@@ -1,8 +1,8 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=3
 
 EGIT_REPO_URI="git://anongit.freedesktop.org/mesa/mesa"
 
@@ -11,13 +11,17 @@ if [[ ${PV} = 9999* ]]; then
 	EXPERIMENTAL="true"
 fi
 
-inherit autotools multilib flag-o-matic ${GIT_ECLASS} portability
+inherit base autotools multilib flag-o-matic toolchain-funcs versionator ${GIT_ECLASS}
 
 OPENGL_DIR="xorg-x11"
 
 MY_PN="${PN/m/M}"
 MY_P="${MY_PN}-${PV/_/-}"
 MY_SRC_P="${MY_PN}Lib-${PV/_/-}"
+
+FOLDER=$(get_version_component_range 1-3)
+[[ ${PV/_rc*/} == ${PV} ]] || FOLDER+="/RC"
+
 DESCRIPTION="OpenGL-like graphic library for Linux"
 HOMEPAGE="http://mesa3d.sourceforge.net/"
 
@@ -25,7 +29,7 @@ HOMEPAGE="http://mesa3d.sourceforge.net/"
 if [[ $PV = 9999* ]]; then
 	SRC_URI="${SRC_PATCHES}"
 else
-	SRC_URI="ftp://ftp.freedesktop.org/pub/mesa/${PV/_rc*/}/${MY_SRC_P}.tar.bz2
+	SRC_URI="ftp://ftp.freedesktop.org/pub/mesa/${FOLDER}/${MY_SRC_P}.tar.bz2
 		${SRC_PATCHES}"
 fi
 
@@ -33,14 +37,17 @@ LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd"
 
-VIDEO_CARDS="intel mach64 mga none nouveau r128 radeon radeonhd savage sis sunffb svga tdfx via"
+INTEL_CARDS="i810 i915 i965 intel"
+RADEON_CARDS="r100 r200 r300 r600 radeon radeonhd"
+VIDEO_CARDS="${INTEL_CARDS} ${RADEON_CARDS} mach64 mga none nouveau r128 savage sis vmware tdfx via"
 for card in ${VIDEO_CARDS}; do
 	IUSE_VIDEO_CARDS+=" video_cards_${card}"
 done
 
 IUSE="${IUSE_VIDEO_CARDS}
-	debug +gallium motif +nptl pic selinux +xcb kernel_FreeBSD"
+	debug +gallium llvm motif +nptl pic selinux +xcb kernel_FreeBSD"
 
+LIBDRM_DEPSTRING=">=x11-libs/libdrm-2.4.19"
 # keep correct libdrm and dri2proto dep
 # keep blocks in rdepend for binpkg
 RDEPEND="
@@ -48,7 +55,6 @@ RDEPEND="
 	!<=x11-proto/xf86driproto-2.0.3
 	>=app-admin/eselect-opengl-1.1.1-r2
 	dev-libs/expat
-	>=x11-libs/libdrm-2.4.17
 	x11-libs/libICE
 	x11-libs/libX11[xcb?]
 	x11-libs/libXdamage
@@ -57,12 +63,31 @@ RDEPEND="
 	x11-libs/libXmu
 	x11-libs/libXxf86vm
 	motif? ( x11-libs/openmotif )
+	gallium? (
+		llvm? (
+			dev-libs/udis86
+			sys-devel/llvm
+		)
+	)
+	${LIBDRM_DEPSTRING}[video_cards_nouveau?,video_cards_vmware?]
 "
+for card in ${INTEL_CARDS}; do
+	RDEPEND="${RDEPEND}
+		video_cards_${card}? ( ${LIBDRM_DEPSTRING}[video_cards_intel] )
+	"
+done
+
+for card in ${RADEON_CARDS}; do
+	RDEPEND="${RDEPEND}
+		video_cards_${card}? ( ${LIBDRM_DEPSTRING}[video_cards_radeon] )
+	"
+done
+
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	x11-misc/makedepend
-	>=x11-proto/dri2proto-1.99.3
-	>=x11-proto/glproto-1.4.8
+	>=x11-proto/dri2proto-2.2
+	>=x11-proto/glproto-1.4.11
 	x11-proto/inputproto
 	>=x11-proto/xextproto-7.0.99.1
 	x11-proto/xf86driproto
@@ -71,7 +96,12 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}/${MY_P}"
 
-# Think about: ggi, svga, fbcon, no-X configs
+# It is slow without texrels, if someone wants slow
+# mesa without texrels +pic use is worth the shot
+QA_EXECSTACK="usr/lib*/opengl/xorg-x11/lib/libGL.so*"
+QA_WX_LOAD="usr/lib*/opengl/xorg-x11/lib/libGL.so*"
+
+# Think about: ggi, fbcon, no-X configs
 
 pkg_setup() {
 	# gcc 4.2 has buggy ivopts
@@ -84,7 +114,7 @@ pkg_setup() {
 }
 
 src_unpack() {
-	[[ $PV = 9999* ]] && git_src_unpack || unpack ${A}
+	[[ $PV = 9999* ]] && git_src_unpack || base_src_unpack
 }
 
 src_prepare() {
@@ -96,27 +126,61 @@ src_prepare() {
 		epatch
 	fi
 	# FreeBSD 6.* doesn't have posix_memalign().
-	[[ ${CHOST} == *-freebsd6.* ]] && \
-		sed -i -e "s/-DHAVE_POSIX_MEMALIGN//" configure.ac
+	if [[ ${CHOST} == *-freebsd6.* ]]; then
+		sed -i \
+			-e "s/-DHAVE_POSIX_MEMALIGN//" \
+			configure.ac || die
+	fi
+
+	# In order for mesa to complete it's build process we need to use a tool
+	# that it compiles. When we cross compile this clearly does not work
+	# so we require mesa to be built on the host system first. -solar
+	if tc-is-cross-compiler; then
+		sed -i -e "s#^GLSL_CL = .*\$#GLSL_CL = glsl-compile#g" \
+			"${S}"/src/mesa/shader/slang/library/Makefile || die
+	fi
+
+	[[ $PV = 9999* ]] && git_src_prepare
+	base_src_prepare
 
 	eautoreconf
 }
 
 src_configure() {
-	local myconf r600
+	local myconf
 
 	# Configurable DRI drivers
 	driver_enable swrast
-	driver_enable video_cards_intel i810 i915 i965
+
+	# Intel code
+	driver_enable video_cards_i810 i810
+	driver_enable video_cards_i915 i915
+	driver_enable video_cards_i965 i965
+	if ! use video_cards_i810 && \
+			! use video_cards_i915 && \
+			! use video_cards_i965; then
+		driver_enable video_cards_intel i810 i915 i965
+	fi
+
 	driver_enable video_cards_mach64 mach64
 	driver_enable video_cards_mga mga
 	driver_enable video_cards_r128 r128
-	# ATI has two implementations as video_cards
-	driver_enable video_cards_radeon radeon r200 r300 r600
-	driver_enable video_cards_radeonhd r300 r600
+
+	# ATI code
+	driver_enable video_cards_r100 radeon
+	driver_enable video_cards_r200 r200
+	driver_enable video_cards_r300 r300
+	driver_enable video_cards_r600 r600
+	if ! use video_cards_r100 && \
+			! use video_cards_r200 && \
+			! use video_cards_r300 && \
+			! use video_cards_r600; then
+		driver_enable video_cards_radeon radeon r200 r300 r600
+		driver_enable video_cards_radeonhd r300 r600
+	fi
+
 	driver_enable video_cards_savage savage
 	driver_enable video_cards_sis sis
-	driver_enable video_cards_sunffb ffb
 	driver_enable video_cards_tdfx tdfx
 	driver_enable video_cards_via unichrome
 
@@ -124,23 +188,34 @@ src_configure() {
 	if use gallium; then
 		elog "You have enabled gallium infrastructure."
 		elog "This infrastructure currently support these drivers:"
-		elog "    Intel: works only i915."
+		elog "    Intel: works only i915 and i965 somehow."
+		elog "    LLVMpipe: Software renderer."
 		elog "    Nouveau: Support for nVidia NV30 and later cards."
-		elog "    Radeon: Newest implementation of r300-r500 driver."
+		elog "    Radeon: Newest implementation of r300-r700 driver."
 		elog "    Svga: VMWare Virtual GPU driver."
 		echo
 		myconf="${myconf}
 			--with-state-trackers=glx,dri,egl
-			$(use_enable video_cards_svga gallium-svga)
-			$(use_enable video_cards_nouveau gallium-nouveau)
-			$(use_enable video_cards_intel gallium-intel)"
-		if use video_cards_radeon || use video_cards_radeonhd; then
+			$(use_enable llvm gallium-llvm)
+			$(use_enable video_cards_vmware gallium-svga)
+			$(use_enable video_cards_nouveau gallium-nouveau)"
+		if use video_cards_i915 || \
+				use video_cards_i965 || \
+				use video_cards_intel; then
+			myconf="${myconf} --enable-gallium-intel"
+		else
+			myconf="${myconf} --disable-gallium-intel"
+		fi
+		if use video_cards_r300 || \
+				use video_cards_r600 || \
+				use video_cards_radeon || \
+				use video_cards_radeonhd; then
 			myconf="${myconf} --enable-gallium-radeon"
 		else
 			myconf="${myconf} --disable-gallium-radeon"
 		fi
 	else
-		if use video_cards_nouveau || use video_cards_svga; then
+		if use video_cards_nouveau || use video_cards_vmware; then
 			elog "SVGA and nouveau drivers are available only via gallium interface."
 			elog "Enable gallium useflag if you want to use them."
 		fi
@@ -163,9 +238,14 @@ src_configure() {
 }
 
 src_install() {
-	dodir /usr
-	emake DESTDIR="${D}" install || die "Installation failed"
+	base_src_install
 
+	# Save the glsl-compiler for later use
+	if ! tc-is-cross-compiler; then
+		dodir /usr/bin/
+		cp "${S}"/src/glsl/apps/compile "${D}"/usr/bin/glsl-compile \
+			|| die "failed to copy the glsl compiler."
+	fi
 	# Remove redundant headers
 	# GLUT thing
 	rm -f "${D}"/usr/include/GL/glut*.h || die "Removing glut include failed."
@@ -217,4 +297,3 @@ driver_enable() {
 			;;
 	esac
 }
-
