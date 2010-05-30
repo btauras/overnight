@@ -45,7 +45,7 @@ for card in ${VIDEO_CARDS}; do
 done
 
 IUSE="${IUSE_VIDEO_CARDS}
-	debug +gallium llvm motif +nptl pic selinux +xcb kernel_FreeBSD"
+	+classic debug +gallium llvm motif +nptl pic selinux +xcb kernel_FreeBSD"
 
 LIBDRM_DEPSTRING=">=x11-libs/libdrm-2.4.19"
 # keep correct libdrm and dri2proto dep
@@ -53,6 +53,7 @@ LIBDRM_DEPSTRING=">=x11-libs/libdrm-2.4.19"
 RDEPEND="
 	!<x11-base/xorg-server-1.7
 	!<=x11-proto/xf86driproto-2.0.3
+	>=app-admin/eselect-mesa-0.0.3
 	>=app-admin/eselect-opengl-1.1.1-r2
 	dev-libs/expat
 	x11-libs/libICE
@@ -149,40 +150,42 @@ src_prepare() {
 src_configure() {
 	local myconf
 
+	if use classic; then
 	# Configurable DRI drivers
-	driver_enable swrast
+		driver_enable swrast
 
 	# Intel code
-	driver_enable video_cards_i810 i810
-	driver_enable video_cards_i915 i915
-	driver_enable video_cards_i965 i965
-	if ! use video_cards_i810 && \
-			! use video_cards_i915 && \
-			! use video_cards_i965; then
-		driver_enable video_cards_intel i810 i915 i965
+		driver_enable video_cards_i810 i810
+		driver_enable video_cards_i915 i915
+		driver_enable video_cards_i965 i965
+			if ! use video_cards_i810 && \
+				! use video_cards_i915 && \
+				! use video_cards_i965; then
+			driver_enable video_cards_intel i810 i915 i965
+		fi
+
+		driver_enable video_cards_mach64 mach64
+		driver_enable video_cards_mga mga
+		driver_enable video_cards_r128 r128
+
+		# ATI code
+		driver_enable video_cards_r100 radeon
+		driver_enable video_cards_r200 r200
+		driver_enable video_cards_r300 r300
+		driver_enable video_cards_r600 r600
+		if ! use video_cards_r100 && \
+				! use video_cards_r200 && \
+				! use video_cards_r300 && \
+				! use video_cards_r600; then
+			driver_enable video_cards_radeon radeon r200 r300 r600
+			driver_enable video_cards_radeonhd r300 r600
+		fi
+
+		driver_enable video_cards_savage savage
+		driver_enable video_cards_sis sis
+		driver_enable video_cards_tdfx tdfx
+		driver_enable video_cards_via unichrome
 	fi
-
-	driver_enable video_cards_mach64 mach64
-	driver_enable video_cards_mga mga
-	driver_enable video_cards_r128 r128
-
-	# ATI code
-	driver_enable video_cards_r100 radeon
-	driver_enable video_cards_r200 r200
-	driver_enable video_cards_r300 r300
-	driver_enable video_cards_r600 r600
-	if ! use video_cards_r100 && \
-			! use video_cards_r200 && \
-			! use video_cards_r300 && \
-			! use video_cards_r600; then
-		driver_enable video_cards_radeon radeon r200 r300 r600
-		driver_enable video_cards_radeonhd r300 r600
-	fi
-
-	driver_enable video_cards_savage savage
-	driver_enable video_cards_sis sis
-	driver_enable video_cards_tdfx tdfx
-	driver_enable video_cards_via unichrome
 
 	myconf="${myconf} $(use_enable gallium)"
 	if use gallium; then
@@ -207,12 +210,18 @@ src_configure() {
 			myconf="${myconf} --disable-gallium-intel"
 		fi
 		if use video_cards_r300 || \
-				use video_cards_r600 || \
 				use video_cards_radeon || \
 				use video_cards_radeonhd; then
 			myconf="${myconf} --enable-gallium-radeon"
 		else
 			myconf="${myconf} --disable-gallium-radeon"
+		fi
+		if use video_cards_r600 || \
+				use video_cards_radeon || \
+				use video_cards_radeonhd; then
+			myconf="${myconf} --enable-gallium-r600"
+		else
+			myconf="${myconf} --disable-gallium-r600"
 		fi
 	else
 		if use video_cards_nouveau || use video_cards_vmware; then
@@ -260,16 +269,47 @@ src_install() {
 		local x
 		for x in "${D}"/usr/$(get_libdir)/libGL.{la,a,so*}; do
 			if [ -f ${x} -o -L ${x} ]; then
-				mv -f ${x} "${D}"/usr/$(get_libdir)/opengl/${OPENGL_DIR}/lib \
+				mv -f "${x}" "${D}"/usr/$(get_libdir)/opengl/${OPENGL_DIR}/lib \
 					|| die "Failed to move ${x}"
 			fi
 		done
 		for x in "${D}"/usr/include/GL/{gl.h,glx.h,glext.h,glxext.h}; do
 			if [ -f ${x} -o -L ${x} ]; then
-				mv -f ${x} "${D}"/usr/$(get_libdir)/opengl/${OPENGL_DIR}/include \
+				mv -f "${x}" "${D}"/usr/$(get_libdir)/opengl/${OPENGL_DIR}/include \
 					|| die "Failed to move ${x}"
 			fi
 		done
+	eend $?
+
+	ebegin "Moving DRI/Gallium drivers for dynamic switching"
+		local gallium_drivers=( i915_dri.so i965_dri.so r300_dri.so r600_dri.so swrast_dri.so )
+		dodir /usr/$(get_libdir)/mesa
+		for x in ${gallium_drivers[@]}; do
+			if [ -f ${S}/$(get_libdir)/gallium/${x} ]; then
+				mv -f "${D}/usr/$(get_libdir)/dri/${x}" "${D}/usr/$(get_libdir)/dri/${x/_dri.so/g_dri.so}" \
+					|| die "Failed to move ${x}"
+				insinto "/usr/$(get_libdir)/dri/"
+				if [ -f ${S}/$(get_libdir)/${x} ]; then
+					insopts -m0755
+					doins "${S}/$(get_libdir)/${x}" || die "failed to install ${x}"
+				fi
+			fi
+		done
+		for x in "${D}"/usr/$(get_libdir)/dri/*.so; do
+			if [ -f ${x} -o -L ${x} ]; then
+				mv -f "${x}" "${x/dri/mesa}" \
+					|| die "Failed to move ${x}"
+			fi
+		done
+		pushd "${D}"/usr/$(get_libdir)/dri || die "pushd failed"
+		ln -s ../mesa/*.so . || die "Creating symlink failed"
+	# remove symlinks to drivers known to eselect
+		for x in ${gallium_drivers[@]}; do
+			if [ -f ${x} -o -L ${x} ]; then
+				rm "${x}" || die "Failed to remove ${x}"
+			fi
+		done
+		popd
 	eend $?
 }
 
@@ -277,6 +317,8 @@ pkg_postinst() {
 	# Switch to the xorg implementation.
 	echo
 	eselect opengl set --use-old ${OPENGL_DIR}
+	# Select classic/gallium drivers
+	eselect mesa set --auto
 }
 
 # $1 - VIDEO_CARDS flag
