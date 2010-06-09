@@ -11,11 +11,11 @@ SRC_URI="mirror://sourceforge/gfire/${P}.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="amd64 hppa ppc x86"
-IUSE="debug libnotify"
+IUSE="debug +libnotify"
 
-RDEPEND="notify? ( x11-libs/libnotify )
+RDEPEND="libnotify? ( x11-libs/libnotify )
 	net-im/pidgin[gtk]
-	>=x11-libs/gtk+-2"
+	x11-libs/gtk+:2"
 
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
