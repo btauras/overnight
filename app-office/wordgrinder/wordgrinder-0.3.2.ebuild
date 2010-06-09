@@ -8,7 +8,7 @@ DESCRIPTION="A console-based word processor"
 HOMEPAGE="http://wordgrinder.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
 
-LICENSE="BSD"
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
