@@ -1,12 +1,14 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+EAPI="1"
 
 inherit games
 
 DESCRIPTION="A tool for managing UT2kX cache, UMODs, etc"
 HOMEPAGE="http://gunrealtools.sourceforge.net/"
-SRC_URI="http://gunrealtools.sourceforge.net/gunrealtools-1.0-beta.tar.gz"
+SRC_URI="http://gunrealtools.sourceforge.net/${PN}-1.0-beta.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -14,7 +16,7 @@ KEYWORDS="~x86 ~amd64"
 IUSE=""
 
 DEPEND=""
-RDEPEND=">=x11-libs/gtk+-2.0"
+RDEPEND="x11-libs/gtk+:2"
 
 S="${WORKDIR}/gunrealtools"
 
