@@ -47,7 +47,7 @@ done
 IUSE="${IUSE_VIDEO_CARDS}
 	+classic debug +gallium llvm motif +nptl pic selinux +xcb kernel_FreeBSD"
 
-LIBDRM_DEPSTRING=">=x11-libs/libdrm-2.4.19"
+LIBDRM_DEPSTRING=">=x11-libs/libdrm-2.4.21"
 # keep correct libdrm and dri2proto dep
 # keep blocks in rdepend for binpkg
 RDEPEND="
@@ -56,6 +56,7 @@ RDEPEND="
 	>=app-admin/eselect-mesa-0.0.3
 	>=app-admin/eselect-opengl-1.1.1-r2
 	dev-libs/expat
+	sys-libs/talloc
 	x11-libs/libICE
 	x11-libs/libX11[xcb?]
 	x11-libs/libXdamage
@@ -137,7 +138,7 @@ src_prepare() {
 	# that it compiles. When we cross compile this clearly does not work
 	# so we require mesa to be built on the host system first. -solar
 	if tc-is-cross-compiler; then
-		sed -i -e "s#^GLSL_CL = .*\$#GLSL_CL = glsl-compile#g" \
+		sed -i -e "s#^GLSL_CL = .*\$#GLSL_CL = glsl_compiler#g" \
 			"${S}"/src/mesa/shader/slang/library/Makefile || die
 	fi
 
@@ -164,11 +165,14 @@ src_configure() {
 			driver_enable video_cards_intel i810 i915 i965
 		fi
 
+		# Nouveau code
+		driver_enable video_cards_nouveau nouveau
+
+		# ATI code
 		driver_enable video_cards_mach64 mach64
 		driver_enable video_cards_mga mga
 		driver_enable video_cards_r128 r128
 
-		# ATI code
 		driver_enable video_cards_r100 radeon
 		driver_enable video_cards_r200 r200
 		driver_enable video_cards_r300 r300
@@ -198,16 +202,21 @@ src_configure() {
 		elog "    Svga: VMWare Virtual GPU driver."
 		echo
 		myconf="${myconf}
-			--with-state-trackers=glx,dri,egl
+			--with-state-trackers=glx,dri,egl,es,vega
 			$(use_enable llvm gallium-llvm)
 			$(use_enable video_cards_vmware gallium-svga)
 			$(use_enable video_cards_nouveau gallium-nouveau)"
 		if use video_cards_i915 || \
-				use video_cards_i965 || \
 				use video_cards_intel; then
-			myconf="${myconf} --enable-gallium-intel"
+			myconf="${myconf} --enable-gallium-i915"
 		else
-			myconf="${myconf} --disable-gallium-intel"
+			myconf="${myconf} --disable-gallium-i915"
+		fi
+		if use video_cards_i965 || \
+				use video_cards_intel; then
+			myconf="${myconf} --enable-gallium-i965"
+		else
+			myconf="${myconf} --disable-gallium-i965"
 		fi
 		if use video_cards_r300 || \
 				use video_cards_radeon || \
@@ -251,9 +260,7 @@ src_install() {
 
 	# Save the glsl-compiler for later use
 	if ! tc-is-cross-compiler; then
-		dodir /usr/bin/
-		cp "${S}"/src/glsl/apps/compile "${D}"/usr/bin/glsl-compile \
-			|| die "failed to copy the glsl compiler."
+		dobin "${S}"/src/glsl/glsl_compiler || die
 	fi
 	# Remove redundant headers
 	# GLUT thing
