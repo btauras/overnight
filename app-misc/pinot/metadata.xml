@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>no-herd</herd>
+  <maintainer>
+    <email>nightmorph@gentoo.org</email>
+    <name>Josh Saddler</name>
+  </maintainer>
+  <longdescription lang="en">
+    Pinot is a desktop search interface. It provides a D-Bus service that
+	crawls, indexes, and monitors your documents for changes.
+  </longdescription>
+  <use>
+	<flag name="deskbar">
+	  Integrates Pinot with the Deskbar search applet
+	</flag>
+  </use>
+  <use>
+    <flag name="dvi">Adds support for DVI documents</flag>
+  <use>
+	<flag name="odf">Adds support for OpenDocument and StarOffice files</flag>
+  </use>
+  <use>
+	<flag name="ppt">Adds support for PowerPoint and Excel documents</flag>
+  </use>
+  <use>
+	<flag name="rtf">Adds support for Rich Text Format (RTF) documents</flag>
+  </use>
+  <use>
+	<flag name="word">Adds support MS Word documents</flag>
+  </use>
+</pkgmetadata>
