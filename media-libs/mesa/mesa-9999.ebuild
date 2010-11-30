@@ -11,7 +11,7 @@ if [[ ${PV} = 9999* ]]; then
 	EXPERIMENTAL="true"
 fi
 
-inherit base autotools multilib flag-o-matic toolchain-funcs versionator ${GIT_ECLASS}
+inherit base autotools multilib flag-o-matic toolchain-funcs ${GIT_ECLASS}
 
 OPENGL_DIR="xorg-x11"
 
@@ -19,7 +19,7 @@ MY_PN="${PN/m/M}"
 MY_P="${MY_PN}-${PV/_/-}"
 MY_SRC_P="${MY_PN}Lib-${PV/_/-}"
 
-FOLDER=$(get_version_component_range 1-3)
+FOLDER="${PV/_rc*/}"
 [[ ${PV/_rc*/} == ${PV} ]] || FOLDER+="/RC"
 
 DESCRIPTION="OpenGL-like graphic library for Linux"
@@ -33,21 +33,21 @@ else
 		${SRC_PATCHES}"
 fi
 
-LICENSE="LGPL-2"
+LICENSE="LGPL-2 kilgard"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd"
 
 INTEL_CARDS="i810 i915 i965 intel"
-RADEON_CARDS="r100 r200 r300 r600 radeon radeonhd"
-VIDEO_CARDS="${INTEL_CARDS} ${RADEON_CARDS} mach64 mga none nouveau r128 savage sis vmware tdfx via"
+RADEON_CARDS="r100 r200 r300 r600 radeon"
+VIDEO_CARDS="${INTEL_CARDS} ${RADEON_CARDS} mach64 mga nouveau r128 savage sis vmware tdfx via"
 for card in ${VIDEO_CARDS}; do
 	IUSE_VIDEO_CARDS+=" video_cards_${card}"
 done
 
 IUSE="${IUSE_VIDEO_CARDS}
-	+classic debug +gallium llvm motif +nptl pic selinux +xcb kernel_FreeBSD"
+	+classic d3d debug +gallium gles llvm motif +nptl pic selinux kernel_FreeBSD"
 
-LIBDRM_DEPSTRING=">=x11-libs/libdrm-2.4.21"
+LIBDRM_DEPSTRING=">=x11-libs/libdrm-2.4.23"
 # keep correct libdrm and dri2proto dep
 # keep blocks in rdepend for binpkg
 RDEPEND="
@@ -56,18 +56,22 @@ RDEPEND="
 	>=app-admin/eselect-mesa-0.0.3
 	>=app-admin/eselect-opengl-1.1.1-r2
 	dev-libs/expat
+	dev-libs/libxml2[python]
 	sys-libs/talloc
 	x11-libs/libICE
-	x11-libs/libX11[xcb?]
+	>=x11-libs/libX11-1.3.99.901
 	x11-libs/libXdamage
 	x11-libs/libXext
 	x11-libs/libXi
 	x11-libs/libXmu
 	x11-libs/libXxf86vm
+	d3d? ( app-emulation/wine )
 	motif? ( x11-libs/openmotif )
 	gallium? (
 		llvm? (
-			dev-libs/udis86
+			amd64? ( dev-libs/udis86 )
+			x86? ( dev-libs/udis86 )
+			x86-fbsd? ( dev-libs/udis86 )
 			sys-devel/llvm
 		)
 	)
@@ -182,7 +186,6 @@ src_configure() {
 				! use video_cards_r300 && \
 				! use video_cards_r600; then
 			driver_enable video_cards_radeon radeon r200 r300 r600
-			driver_enable video_cards_radeonhd r300 r600
 		fi
 
 		driver_enable video_cards_savage savage
@@ -192,6 +195,10 @@ src_configure() {
 	fi
 
 	myconf="${myconf} $(use_enable gallium)"
+	if use !gallium && use !classic; then
+		ewarn "You enabled neither classic nor gallium USE flags. No hardware"
+		ewarn "drivers will be built."
+	fi
 	if use gallium; then
 		elog "You have enabled gallium infrastructure."
 		elog "This infrastructure currently support these drivers:"
@@ -202,8 +209,11 @@ src_configure() {
 		elog "    Svga: VMWare Virtual GPU driver."
 		echo
 		myconf="${myconf}
-			--with-state-trackers=glx,dri,egl,es,vega
+			--with-state-trackers=glx,dri,egl,vega$(use d3d && echo ",d3d1x")
 			$(use_enable llvm gallium-llvm)
+			$(use_enable gles gles1)
+			$(use_enable gles gles2)
+			$(use_enable gles gles-overlay)
 			$(use_enable video_cards_vmware gallium-svga)
 			$(use_enable video_cards_nouveau gallium-nouveau)"
 		if use video_cards_i915 || \
@@ -219,15 +229,13 @@ src_configure() {
 			myconf="${myconf} --disable-gallium-i965"
 		fi
 		if use video_cards_r300 || \
-				use video_cards_radeon || \
-				use video_cards_radeonhd; then
+				use video_cards_radeon; then
 			myconf="${myconf} --enable-gallium-radeon"
 		else
 			myconf="${myconf} --disable-gallium-radeon"
 		fi
 		if use video_cards_r600 || \
-				use video_cards_radeon || \
-				use video_cards_radeonhd; then
+				use video_cards_radeon; then
 			myconf="${myconf} --enable-gallium-r600"
 		else
 			myconf="${myconf} --disable-gallium-r600"
@@ -245,11 +253,11 @@ src_configure() {
 		--with-driver=dri \
 		--disable-glut \
 		--without-demos \
+		--enable-xcb \
 		$(use_enable debug) \
 		$(use_enable motif glw) \
 		$(use_enable motif) \
 		$(use_enable nptl glx-tls) \
-		$(use_enable xcb) \
 		$(use_enable !pic asm) \
 		--with-dri-drivers=${DRI_DRIVERS} \
 		${myconf}
@@ -268,6 +276,10 @@ src_install() {
 	# Glew includes
 	rm -f "${D}"/usr/include/GL/{glew,glxew,wglew}.h \
 		|| die "Removing glew includes failed."
+
+	# Install config file for eselect mesa
+	insinto /usr/share/mesa
+	newins "${FILESDIR}/eselect-mesa.conf.7.10" eselect-mesa.conf || die
 
 	# Move libGL and others from /usr/lib to /usr/lib/opengl/blah/lib
 	# because user can eselect desired GL provider.
@@ -288,36 +300,38 @@ src_install() {
 		done
 	eend $?
 
-	ebegin "Moving DRI/Gallium drivers for dynamic switching"
-		local gallium_drivers=( i915_dri.so i965_dri.so r300_dri.so r600_dri.so swrast_dri.so )
-		dodir /usr/$(get_libdir)/mesa
-		for x in ${gallium_drivers[@]}; do
-			if [ -f ${S}/$(get_libdir)/gallium/${x} ]; then
-				mv -f "${D}/usr/$(get_libdir)/dri/${x}" "${D}/usr/$(get_libdir)/dri/${x/_dri.so/g_dri.so}" \
-					|| die "Failed to move ${x}"
-				insinto "/usr/$(get_libdir)/dri/"
-				if [ -f ${S}/$(get_libdir)/${x} ]; then
-					insopts -m0755
-					doins "${S}/$(get_libdir)/${x}" || die "failed to install ${x}"
+	if use classic || use gallium; then
+		ebegin "Moving DRI/Gallium drivers for dynamic switching"
+			local gallium_drivers=( i915_dri.so i965_dri.so r300_dri.so r600_dri.so swrast_dri.so )
+			dodir /usr/$(get_libdir)/mesa
+			for x in ${gallium_drivers[@]}; do
+				if [ -f "${S}/$(get_libdir)/gallium/${x}" ]; then
+					mv -f "${D}/usr/$(get_libdir)/dri/${x}" "${D}/usr/$(get_libdir)/dri/${x/_dri.so/g_dri.so}" \
+						|| die "Failed to move ${x}"
+					insinto "/usr/$(get_libdir)/dri/"
+					if [ -f "${S}/$(get_libdir)/${x}" ]; then
+						insopts -m0755
+						doins "${S}/$(get_libdir)/${x}" || die "failed to install ${x}"
+					fi
 				fi
-			fi
-		done
-		for x in "${D}"/usr/$(get_libdir)/dri/*.so; do
-			if [ -f ${x} -o -L ${x} ]; then
-				mv -f "${x}" "${x/dri/mesa}" \
-					|| die "Failed to move ${x}"
-			fi
-		done
-		pushd "${D}"/usr/$(get_libdir)/dri || die "pushd failed"
-		ln -s ../mesa/*.so . || die "Creating symlink failed"
-	# remove symlinks to drivers known to eselect
-		for x in ${gallium_drivers[@]}; do
-			if [ -f ${x} -o -L ${x} ]; then
-				rm "${x}" || die "Failed to remove ${x}"
-			fi
-		done
-		popd
-	eend $?
+			done
+			for x in "${D}"/usr/$(get_libdir)/dri/*.so; do
+				if [ -f ${x} -o -L ${x} ]; then
+					mv -f "${x}" "${x/dri/mesa}" \
+						|| die "Failed to move ${x}"
+				fi
+			done
+			pushd "${D}"/usr/$(get_libdir)/dri || die "pushd failed"
+			ln -s ../mesa/*.so . || die "Creating symlink failed"
+			# remove symlinks to drivers known to eselect
+			for x in ${gallium_drivers[@]}; do
+				if [ -f ${x} -o -L ${x} ]; then
+					rm "${x}" || die "Failed to remove ${x}"
+				fi
+			done
+			popd
+		eend $?
+	fi
 }
 
 pkg_postinst() {
