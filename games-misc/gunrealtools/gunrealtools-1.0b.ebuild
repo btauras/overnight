@@ -15,8 +15,9 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-DEPEND=""
-RDEPEND="x11-libs/gtk+:2"
+DEPEND="${RDEPEND}"
+RDEPEND="gnome-base/libgnomeui
+	x11-libs/gtk+:2"
 
 S="${WORKDIR}/gunrealtools"
 
@@ -27,7 +28,7 @@ S="${WORKDIR}/gunrealtools"
 #}
 
 src_install() {
-	make DESTDIR="${D}" install || die "Failed installing"
+	emake DESTDIR="${D}" install || die "Failed installing"
 
 	# We will use dodoc for this
 	rm -rf "${D}/usr/doc"
