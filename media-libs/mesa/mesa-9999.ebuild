@@ -11,7 +11,7 @@ if [[ ${PV} = 9999* ]]; then
 	EXPERIMENTAL="true"
 fi
 
-inherit base autotools multilib flag-o-matic toolchain-funcs ${GIT_ECLASS}
+inherit base autotools multilib flag-o-matic python toolchain-funcs ${GIT_ECLASS}
 
 OPENGL_DIR="xorg-x11"
 
@@ -35,7 +35,7 @@ fi
 
 LICENSE="LGPL-2 kilgard"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd ~x86-freebsd ~amd64-linux ~ia64-linux ~x86-linux ~sparc-solaris ~x64-solaris ~x86-solaris"
 
 INTEL_CARDS="i810 i915 i965 intel"
 RADEON_CARDS="r100 r200 r300 r600 radeon"
@@ -47,7 +47,7 @@ done
 IUSE="${IUSE_VIDEO_CARDS}
 	+classic d3d debug +gallium gles llvm motif +nptl pic selinux kernel_FreeBSD"
 
-LIBDRM_DEPSTRING=">=x11-libs/libdrm-2.4.23"
+LIBDRM_DEPSTRING=">=x11-libs/libdrm-2.4.24"
 # keep correct libdrm and dri2proto dep
 # keep blocks in rdepend for binpkg
 RDEPEND="
@@ -57,7 +57,6 @@ RDEPEND="
 	>=app-admin/eselect-opengl-1.1.1-r2
 	dev-libs/expat
 	dev-libs/libxml2[python]
-	sys-libs/talloc
 	x11-libs/libICE
 	>=x11-libs/libX11-1.3.99.901
 	x11-libs/libXdamage
@@ -90,6 +89,7 @@ for card in ${RADEON_CARDS}; do
 done
 
 DEPEND="${RDEPEND}
+	=dev-lang/python-2*
 	dev-util/pkgconfig
 	x11-misc/makedepend
 	>=x11-proto/dri2proto-2.2
@@ -117,6 +117,9 @@ pkg_setup() {
 
 	# recommended by upstream
 	append-flags -ffast-math
+
+	python_set_active_version 2
+	python_pkg_setup
 }
 
 src_unpack() {
@@ -136,6 +139,11 @@ src_prepare() {
 		sed -i \
 			-e "s/-DHAVE_POSIX_MEMALIGN//" \
 			configure.ac || die
+	fi
+	# Solaris needs some recent POSIX stuff in our case
+	if [[ ${CHOST} == *-solaris* ]] ; then
+		sed -i -e "s/-DSVR4/-D_POSIX_C_SOURCE=200112L/" configure.ac || die
+		sed -i -e 's/uint/unsigned int/g' src/egl/drivers/glx/egl_glx.c || die
 	fi
 
 	# In order for mesa to complete it's build process we need to use a tool
@@ -215,7 +223,11 @@ src_configure() {
 			$(use_enable gles gles2)
 			$(use_enable gles gles-overlay)
 			$(use_enable video_cards_vmware gallium-svga)
-			$(use_enable video_cards_nouveau gallium-nouveau)"
+			$(use_enable video_cards_nouveau gallium-nouveau)
+			$(use_enable video_cards_intel gallium-i915)
+			$(use_enable video_cards_intel gallium-i965)
+			$(use_enable video_cards_radeon gallium-radeon)
+			$(use_enable video_cards_radeon gallium-r600)"
 		if use video_cards_i915 || \
 				use video_cards_intel; then
 			myconf="${myconf} --enable-gallium-i915"
@@ -272,29 +284,29 @@ src_install() {
 	fi
 	# Remove redundant headers
 	# GLUT thing
-	rm -f "${D}"/usr/include/GL/glut*.h || die "Removing glut include failed."
+	rm -f "${ED}"/usr/include/GL/glut*.h || die "Removing glut include failed."
 	# Glew includes
-	rm -f "${D}"/usr/include/GL/{glew,glxew,wglew}.h \
+	rm -f "${ED}"/usr/include/GL/{glew,glxew,wglew}.h \
 		|| die "Removing glew includes failed."
 
 	# Install config file for eselect mesa
 	insinto /usr/share/mesa
-	newins "${FILESDIR}/eselect-mesa.conf.7.10" eselect-mesa.conf || die
+	newins "${FILESDIR}/eselect-mesa.conf.7.11" eselect-mesa.conf || die
 
 	# Move libGL and others from /usr/lib to /usr/lib/opengl/blah/lib
 	# because user can eselect desired GL provider.
 	ebegin "Moving libGL and friends for dynamic switching"
 		dodir /usr/$(get_libdir)/opengl/${OPENGL_DIR}/{lib,extensions,include}
 		local x
-		for x in "${D}"/usr/$(get_libdir)/libGL.{la,a,so*}; do
+		for x in "${ED}"/usr/$(get_libdir)/libGL.{la,a,so*}; do
 			if [ -f ${x} -o -L ${x} ]; then
-				mv -f "${x}" "${D}"/usr/$(get_libdir)/opengl/${OPENGL_DIR}/lib \
+				mv -f "${x}" "${ED}"/usr/$(get_libdir)/opengl/${OPENGL_DIR}/lib \
 					|| die "Failed to move ${x}"
 			fi
 		done
-		for x in "${D}"/usr/include/GL/{gl.h,glx.h,glext.h,glxext.h}; do
+		for x in "${ED}"/usr/include/GL/{gl.h,glx.h,glext.h,glxext.h}; do
 			if [ -f ${x} -o -L ${x} ]; then
-				mv -f "${x}" "${D}"/usr/$(get_libdir)/opengl/${OPENGL_DIR}/include \
+				mv -f "${x}" "${ED}"/usr/$(get_libdir)/opengl/${OPENGL_DIR}/include \
 					|| die "Failed to move ${x}"
 			fi
 		done
@@ -306,7 +318,7 @@ src_install() {
 			dodir /usr/$(get_libdir)/mesa
 			for x in ${gallium_drivers[@]}; do
 				if [ -f "${S}/$(get_libdir)/gallium/${x}" ]; then
-					mv -f "${D}/usr/$(get_libdir)/dri/${x}" "${D}/usr/$(get_libdir)/dri/${x/_dri.so/g_dri.so}" \
+					mv -f "${ED}/usr/$(get_libdir)/dri/${x}" "${ED}/usr/$(get_libdir)/dri/${x/_dri.so/g_dri.so}" \
 						|| die "Failed to move ${x}"
 					insinto "/usr/$(get_libdir)/dri/"
 					if [ -f "${S}/$(get_libdir)/${x}" ]; then
@@ -315,13 +327,13 @@ src_install() {
 					fi
 				fi
 			done
-			for x in "${D}"/usr/$(get_libdir)/dri/*.so; do
+			for x in "${ED}"/usr/$(get_libdir)/dri/*.so; do
 				if [ -f ${x} -o -L ${x} ]; then
 					mv -f "${x}" "${x/dri/mesa}" \
 						|| die "Failed to move ${x}"
 				fi
 			done
-			pushd "${D}"/usr/$(get_libdir)/dri || die "pushd failed"
+			pushd "${ED}"/usr/$(get_libdir)/dri || die "pushd failed"
 			ln -s ../mesa/*.so . || die "Creating symlink failed"
 			# remove symlinks to drivers known to eselect
 			for x in ${gallium_drivers[@]}; do
