@@ -1,0 +1,38 @@
+--- csound5.orig/install.py	2010-11-26 17:54:47.000000000 +0200
++++ csound5/install.py	2010-11-26 18:04:53.000000000 +0200
+@@ -14,7 +14,7 @@
+                'H/csound.hpp', 'H/csoundCore.h', 'H/cwindow.h',
+                'H/msg_attr.h', 'H/OpcodeBase.hpp', 'H/pstream.h',
+                'H/pvfileio.h', 'H/soundio.h', 'H/sysdep.h', 'H/text.h',
+-               'H/version.h', 'H/float-version-double.h',  'H/float-version.h',
++               'H/version.h', 'H/float-version.h',
+                'interfaces/CppSound.hpp', 'interfaces/filebuilding.h',
+                'interfaces/CsoundFile.hpp', 'interfaces/csPerfThread.hpp']
+
+@@ -116,7 +116,7 @@
+ # LISP interface
+ lispDir     = concatPath([libDir, '/csound/lisp'])
+ # STK raw wave files
+-rawWaveDir  = concatPath([prefix, '/share/csound/rawwaves'])
++rawWaveDir  = concatPath([prefix, '/share/stk/rawwaves'])
+
+ # csnd.py
+ pythonDir   = '/usr/lib%s/python%s/site-packages' % (word64Suffix, pyVersion)
+@@ -363,17 +363,6 @@
+ err = installXFile('', 'matrix.tk', binDir)
+ installErrors = installErrors or err
+
+-# copy STK raw wave files
+-
+-if '%s/libstk.so' % pluginDir in fileList:
+-    print ' === Installing STK raw wave files ==='
+-    rawWaveFiles = []
+-    for fName in os.listdir('./Opcodes/stk/rawwaves'):
+-        if re.match('^.*\.raw$', fName) != None:
+-            rawWaveFiles += ['./Opcodes/stk/rawwaves/' + fName]
+-    err = installFiles(rawWaveFiles, rawWaveDir)
+-    installErrors = installErrors or err
+-
+ # copy PD object
+ pdDir = '/usr/local/lib' + word64Suffix + '/pd/extra'
+ try:

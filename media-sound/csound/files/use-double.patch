@@ -1,0 +1,11 @@
+--- csound5.orig/H/float-version.h	2010-07-29 12:05:15.000000000 +0300
++++ csound5/H/float-version.h	2010-11-26 18:07:49.000000000 +0200
+@@ -23,8 +23,6 @@
+
+ /* uncomment the line below for double-precision installed headers */
+
+-/*
+ #ifndef USE_DOUBLE
+ #define USE_DOUBLE
+ #endif
+-*/
