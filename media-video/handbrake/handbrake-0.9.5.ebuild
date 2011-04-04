@@ -6,7 +6,7 @@ EAPI="2"
 
 inherit autotools gnome2-utils
 
-WANT_AUTOMAKE="1.4"
+WANT_AUTOMAKE="1.7"
 MY_PN="HandBrake"
 S="${WORKDIR}/${MY_PN}-${PV}"
 
