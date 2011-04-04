@@ -6,4 +6,7 @@
 	<name>Joshua Saddler</name>
 </maintainer>
 <herd>no-herd</herd>
+<use>
+	<flag name="dbus">Enable status change for other IM clients (currently only kmess)</flag>
+</use>
 </pkgmetadata>
