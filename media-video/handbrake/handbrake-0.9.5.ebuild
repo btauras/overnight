@@ -4,8 +4,6 @@
 
 EAPI="2"
 
-WANT_AUTOMAKE="1.7"
-
 inherit autotools eutils gnome2-utils
 
 MY_PN="HandBrake"
@@ -33,6 +31,8 @@ RDEPEND="sys-libs/zlib
 	)"
 DEPEND="dev-lang/yasm
 	dev-lang/python
+	sys-devel/automake:1.9
+	sys-devel/automake:1.10
 	|| ( net-misc/wget net-misc/curl ) 
 	${RDEPEND}"
 
@@ -50,7 +50,7 @@ src_configure() {
 }
 
 src_compile() {
-	emake -C build || die "failed compiling ${PN}"
+	WANT_AUTOMAKE=1.9 emake -C build || die "failed compiling ${PN}"
 }
 
 src_install() {
