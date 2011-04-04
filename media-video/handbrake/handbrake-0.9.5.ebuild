@@ -4,9 +4,10 @@
 
 EAPI="2"
 
-inherit autotools gnome2-utils
-
 WANT_AUTOMAKE="1.7"
+
+inherit autotools eutils gnome2-utils
+
 MY_PN="HandBrake"
 S="${WORKDIR}/${MY_PN}-${PV}"
 
@@ -35,9 +36,15 @@ DEPEND="dev-lang/yasm
 	|| ( net-misc/wget net-misc/curl ) 
 	${RDEPEND}"
 
+src_prepare() {
+	epatch "${FILESDIR}/${PV}-backport-lib-fixes.patch"
+	cd gtk
+	eautoreconf
+}
+
 src_configure() {
 	# Python configure script doesn't accept all econf flags
-	./configure --force --prefix=/usr \
+	./configure --force --prefix=/usr --disable-gtk-update-checks \
 		$(use_enable gtk) \
 		|| die "configure failed"
 }
