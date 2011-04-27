@@ -7,7 +7,7 @@ EAPI=3
 EGIT_REPO_URI="git://anongit.freedesktop.org/mesa/mesa"
 
 if [[ ${PV} = 9999* ]]; then
-	GIT_ECLASS="git"
+	GIT_ECLASS="git-2"
 	EXPERIMENTAL="true"
 fi
 
@@ -45,15 +45,22 @@ for card in ${VIDEO_CARDS}; do
 done
 
 IUSE="${IUSE_VIDEO_CARDS}
-	+classic d3d debug +gallium gles llvm motif +nptl pic selinux kernel_FreeBSD"
+	bindist +classic d3d debug +egl +gallium gles +llvm motif +nptl openvg pic selinux shared-dricore wayland kernel_FreeBSD"
 
 LIBDRM_DEPSTRING=">=x11-libs/libdrm-2.4.24"
+# not a runtime dependency of this package, but dependency of packages which
+# depend on this package, bug #342393
+EXTERNAL_DEPEND="
+	>=x11-proto/dri2proto-2.2
+	>=x11-proto/glproto-1.4.11
+"
 # keep correct libdrm and dri2proto dep
 # keep blocks in rdepend for binpkg
-RDEPEND="
+RDEPEND="${EXTERNAL_DEPEND}
 	!<x11-base/xorg-server-1.7
 	!<=x11-proto/xf86driproto-2.0.3
-	>=app-admin/eselect-mesa-0.0.3
+	classic? ( app-admin/eselect-mesa )
+	gallium? ( app-admin/eselect-mesa )
 	>=app-admin/eselect-opengl-1.1.1-r2
 	dev-libs/expat
 	dev-libs/libxml2[python]
@@ -67,13 +74,9 @@ RDEPEND="
 	d3d? ( app-emulation/wine )
 	motif? ( x11-libs/openmotif )
 	gallium? (
-		llvm? (
-			amd64? ( dev-libs/udis86 )
-			x86? ( dev-libs/udis86 )
-			x86-fbsd? ( dev-libs/udis86 )
-			sys-devel/llvm
-		)
+		llvm? ( >=sys-devel/llvm-2.9 )
 	)
+	wayland? ( x11-base/wayland )
 	${LIBDRM_DEPSTRING}[video_cards_nouveau?,video_cards_vmware?]
 "
 for card in ${INTEL_CARDS}; do
@@ -92,8 +95,6 @@ DEPEND="${RDEPEND}
 	=dev-lang/python-2*
 	dev-util/pkgconfig
 	x11-misc/makedepend
-	>=x11-proto/dri2proto-2.2
-	>=x11-proto/glproto-1.4.11
 	x11-proto/inputproto
 	>=x11-proto/xextproto-7.0.99.1
 	x11-proto/xf86driproto
@@ -123,7 +124,7 @@ pkg_setup() {
 }
 
 src_unpack() {
-	[[ $PV = 9999* ]] && git_src_unpack || base_src_unpack
+	[[ $PV = 9999* ]] && git-2_src_unpack || base_src_unpack
 }
 
 src_prepare() {
@@ -154,7 +155,6 @@ src_prepare() {
 			"${S}"/src/mesa/shader/slang/library/Makefile || die
 	fi
 
-	[[ $PV = 9999* ]] && git_src_prepare
 	base_src_prepare
 
 	eautoreconf
@@ -202,55 +202,54 @@ src_configure() {
 		driver_enable video_cards_via unichrome
 	fi
 
-	myconf="${myconf} $(use_enable gallium)"
+	myconf+="
+		$(use_enable !bindist texture-float)
+		$(use_enable gles gles1)
+		$(use_enable gles gles2)
+		$(use_enable egl)
+		$(use_enable openvg)
+		$(use_enable gallium)
+	"
+	use egl && myconf+="--with-egl-platforms=$(use wayland && echo "wayland,")drm,x11"
+
 	if use !gallium && use !classic; then
 		ewarn "You enabled neither classic nor gallium USE flags. No hardware"
 		ewarn "drivers will be built."
 	fi
 	if use gallium; then
-		elog "You have enabled gallium infrastructure."
-		elog "This infrastructure currently support these drivers:"
-		elog "    Intel: works only i915 and i965 somehow."
-		elog "    LLVMpipe: Software renderer."
-		elog "    Nouveau: Support for nVidia NV30 and later cards."
-		elog "    Radeon: Newest implementation of r300-r700 driver."
-		elog "    Svga: VMWare Virtual GPU driver."
-		echo
-		myconf="${myconf}
-			--with-state-trackers=glx,dri,egl,vega$(use d3d && echo ",d3d1x")
+		myconf+="
+			--with-state-trackers=glx,dri$(use egl && echo ",egl")$(use openvg && echo ",vega")$(use d3d && echo ",d3d1x")
 			$(use_enable llvm gallium-llvm)
-			$(use_enable gles gles1)
-			$(use_enable gles gles2)
-			$(use_enable gles gles-overlay)
 			$(use_enable video_cards_vmware gallium-svga)
 			$(use_enable video_cards_nouveau gallium-nouveau)
 			$(use_enable video_cards_intel gallium-i915)
 			$(use_enable video_cards_intel gallium-i965)
-			$(use_enable video_cards_radeon gallium-radeon)
-			$(use_enable video_cards_radeon gallium-r600)"
+			$(use_enable video_cards_radeon gallium-r300)
+			$(use_enable video_cards_radeon gallium-r600)
+		"
 		if use video_cards_i915 || \
 				use video_cards_intel; then
-			myconf="${myconf} --enable-gallium-i915"
+			myconf+=" --enable-gallium-i915"
 		else
-			myconf="${myconf} --disable-gallium-i915"
+			myconf+=" --disable-gallium-i915"
 		fi
 		if use video_cards_i965 || \
 				use video_cards_intel; then
-			myconf="${myconf} --enable-gallium-i965"
+			myconf+=" --enable-gallium-i965"
 		else
-			myconf="${myconf} --disable-gallium-i965"
+			myconf+=" --disable-gallium-i965"
 		fi
 		if use video_cards_r300 || \
 				use video_cards_radeon; then
-			myconf="${myconf} --enable-gallium-radeon"
+			myconf+=" --enable-gallium-r300"
 		else
-			myconf="${myconf} --disable-gallium-radeon"
+			myconf+=" --disable-gallium-r300"
 		fi
 		if use video_cards_r600 || \
 				use video_cards_radeon; then
-			myconf="${myconf} --enable-gallium-r600"
+			myconf+=" --enable-gallium-r600"
 		else
-			myconf="${myconf} --disable-gallium-r600"
+			myconf+=" --disable-gallium-r600"
 		fi
 	else
 		if use video_cards_nouveau || use video_cards_vmware; then
@@ -271,12 +270,17 @@ src_configure() {
 		$(use_enable motif) \
 		$(use_enable nptl glx-tls) \
 		$(use_enable !pic asm) \
+		$(use_enable shared-dricore) \
 		--with-dri-drivers=${DRI_DRIVERS} \
 		${myconf}
 }
 
 src_install() {
 	base_src_install
+
+	if use !bindist; then
+		dodoc docs/patents.txt || die
+	fi
 
 	# Save the glsl-compiler for later use
 	if ! tc-is-cross-compiler; then
@@ -313,8 +317,9 @@ src_install() {
 	eend $?
 
 	if use classic || use gallium; then
-		ebegin "Moving DRI/Gallium drivers for dynamic switching"
+			ebegin "Moving DRI/Gallium drivers for dynamic switching"
 			local gallium_drivers=( i915_dri.so i965_dri.so r300_dri.so r600_dri.so swrast_dri.so )
+			keepdir /usr/$(get_libdir)/dri
 			dodir /usr/$(get_libdir)/mesa
 			for x in ${gallium_drivers[@]}; do
 				if [ -f "${S}/$(get_libdir)/gallium/${x}" ]; then
@@ -351,7 +356,15 @@ pkg_postinst() {
 	echo
 	eselect opengl set --use-old ${OPENGL_DIR}
 	# Select classic/gallium drivers
-	eselect mesa set --auto
+	if use classic || use gallium; then
+		eselect mesa set --auto
+	fi
+
+	# warn about patent encumbered texture-float
+	if use !bindist; then
+		elog "USE=\"bindist\" was not set. Potentially patent encumbered code was"
+		elog "enabled. Please see patents.txt for an explanation."
+	fi
 }
 
 # $1 - VIDEO_CARDS flag
