@@ -19,7 +19,7 @@ IUSE="python"
 
 DEPEND="media-libs/liblo
 	sys-fs/udev
-	python? ( || ( dev-lang/python:2.7 ) ( dev-lang/python:2.6 ) )"
+	python? ( || ( dev-lang/python:2.7 dev-lang/python:2.6 ) )"
 
 RDEPEND="${DEPEND}
 	dev-util/pkgconfig"
