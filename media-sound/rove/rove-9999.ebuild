@@ -4,7 +4,7 @@
 
 EAPI="4"
 
-EGIT_REPO_URI="git://github.com/wrl/rove.git"
+EGIT_REPO_URI="git://github.com/nightmorph/rove.git"
 
 inherit eutils git-2 multilib
 
