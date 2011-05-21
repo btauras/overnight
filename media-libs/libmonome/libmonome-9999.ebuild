@@ -7,8 +7,8 @@ EAPI="3"
 EGIT_REPO_URI="git://github.com/monome/libmonome.git"
 #EGIT_BOOTSTRAP="autogen.sh"
 
-#inherit eutils git
-inherit git
+inherit eutils git
+#inherit git
 
 DESCRIPTION="A library for easy interaction with monome devices"
 HOMEPAGE="http://github.com/monome/libmonome"
@@ -21,14 +21,15 @@ IUSE="python"
 
 DEPEND="media-libs/liblo
 	sys-fs/udev
-	python? ( dev-lang/python:2.7 )"
+	python? ( || ( dev-lang/python:2.7 ) ( dev-lang/python:2.6 ) )"
 	# enable python bindings
 
 RDEPEND="${DEPEND}
 	dev-util/pkgconfig"
 
 src_configure() {
-	econf $(use_enable python) || die "econf failed"
+	econf $(use_enable python) \
+	--prefix=/usr || die "econf failed"
 }
 
 #src_compile() {
