@@ -25,14 +25,3 @@ DEPEND="media-libs/liblo
 
 RDEPEND="${DEPEND}
 	dev-util/pkgconfig"
-
-src_configure() {
-	econf --prefix=/usr
-}
-
-#src_install() {
-#	emake BINDIR="${D}"/usr/bin LIBDIR="${D}"/usr/$(get_libdir) \
-#		INCDIR="${D}"/usr/include MANDIR="${D}"/usr/share/man \
-#		PKGCONFIGDIR="${D}"/usr/$(get_libdir)/pkgconfig install
-#	dodoc README
-#}
