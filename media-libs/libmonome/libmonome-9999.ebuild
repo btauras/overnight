@@ -4,7 +4,7 @@
 
 EAPI="4"
 
-EGIT_REPO_URI="git://github.com/monome/libmonome.git"
+EGIT_REPO_URI="git://github.com/nightmorph/libmonome.git"
 
 inherit eutils git-2 multilib
 
@@ -27,11 +27,4 @@ RDEPEND="${DEPEND}
 src_configure() {
 	econf $(use_enable python) \
 	--prefix=/usr
-}
-
-src_install() {
-	emake BINDIR="${D}"/usr/bin LIBDIR="${D}"/usr/$(get_libdir) \
-		INCDIR="${D}"/usr/include MANDIR="${D}"/usr/share/man \
-		PKGCONFIGDIR="${D}"/usr/$(get_libdir)/pkgconfig install
-	dodoc README
 }
