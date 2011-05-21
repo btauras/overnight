@@ -10,4 +10,7 @@
     Rove is music performance software for monomes. It is a live sample cutter
 	in the spirit of mlr.	
   </longdesription>
+  <use>
+    <flag name="libsamplerate">Allows you to change the playback speed</flag>
+  </use>
 </pkgmetadata>

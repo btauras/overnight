@@ -33,5 +33,5 @@ src_install() {
 	emake BINDIR="${D}"/usr/bin LIBDIR="${D}"/usr/$(get_libdir) \
 		INCDIR="${D}"/usr/include MANDIR="${D}"/usr/share/man \
 		PKGCONFIGDIR="${D}"/usr/lib/pkgconfig install
-	dodoc README || die "dodoc failed"
+	dodoc README
 }
