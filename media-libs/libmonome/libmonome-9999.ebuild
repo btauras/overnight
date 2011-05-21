@@ -32,6 +32,6 @@ src_configure() {
 src_install() {
 	emake BINDIR="${D}"/usr/bin LIBDIR="${D}"/usr/$(get_libdir) \
 		INCDIR="${D}"/usr/include MANDIR="${D}"/usr/share/man \
-		PKGCONFIGDIR="${D}"/usr/lib/pkgconfig install
+		PKGCONFIGDIR="${D}"/usr/$(get_libdir)/pkgconfig install
 	dodoc README
 }

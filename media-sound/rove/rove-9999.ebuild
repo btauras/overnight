@@ -4,7 +4,7 @@
 
 EAPI="4"
 
-EGIT_REPO_URI="git://github.com/wrl/rove.git"
+EGIT_REPO_URI="git://github.com/nightmorph/rove.git"
 
 inherit eutils git-2 multilib
 
@@ -26,9 +26,13 @@ DEPEND="media-libs/liblo
 RDEPEND="${DEPEND}
 	dev-util/pkgconfig"
 
+#src_configure() {
+#	econf --prefix=/usr
+#}
+
 src_install() {
 	emake BINDIR="${D}"/usr/bin LIBDIR="${D}"/usr/$(get_libdir) \
 		INCDIR="${D}"/usr/include MANDIR="${D}"/usr/share/man \
-		PKGCONFIGDIR="${D}"/usr/lib/pkgconfig install
+		PKGCONFIGDIR="${D}"/usr/$(get_libdir)/pkgconfig install
 	dodoc README
 }
