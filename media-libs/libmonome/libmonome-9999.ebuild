@@ -2,13 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI="4"
 
 EGIT_REPO_URI="git://github.com/monome/libmonome.git"
-#EGIT_BOOTSTRAP="autogen.sh"
 
-inherit eutils git
-#inherit git
+inherit eutils git-2 multilib
 
 DESCRIPTION="A library for easy interaction with monome devices"
 HOMEPAGE="http://github.com/monome/libmonome"
@@ -22,21 +20,18 @@ IUSE="python"
 DEPEND="media-libs/liblo
 	sys-fs/udev
 	python? ( || ( dev-lang/python:2.7 ) ( dev-lang/python:2.6 ) )"
-	# enable python bindings
 
 RDEPEND="${DEPEND}
 	dev-util/pkgconfig"
 
 src_configure() {
 	econf $(use_enable python) \
-	--prefix=/usr || die "econf failed"
+	--prefix=/usr
 }
 
-#src_compile() {
-#	emake || die "emake failed"
-#}
-
 src_install() {
-	emake PREFIX="${D}" install || die "emake install failed"
+	emake BINDIR="${D}"/usr/bin LIBDIR="${D}"/usr/$(get_libdir) \
+		INCDIR="${D}"/usr/include MANDIR="${D}"/usr/share/man \
+		PKGCONFIGDIR="${D}"/usr/lib/pkgconfig install
 	dodoc README || die "dodoc failed"
 }

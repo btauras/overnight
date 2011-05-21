@@ -6,4 +6,7 @@
     <email>nightmorph@gmail.com</email>
     <name>Joshua Saddler</name>
   </maintainer>
+  <use>
+    <flag name="python">Build python bindings</flag>
+  </use>
 </pkgmetadata>
