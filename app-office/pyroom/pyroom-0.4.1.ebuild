@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="4"
+
 inherit distutils
 
 DESCRIPTION="A minimal word processor that lets you focus on writing"
