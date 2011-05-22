@@ -1,8 +1,8 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI="4"
 
 inherit linux-info
 
@@ -43,14 +43,6 @@ RDEPEND="${DEPEND}
 	rtf? ( app-text/unrtf )
 	word? ( app-text/antiword )"
 
-src_compile() {
-	econf \
-		$(use_enable libarchive) \
-	emake
-	}
-		
-
-src_install() {
-	emake DESTDIR="${D}" install || die "make install failed"
-	dodoc AUTHORS FAQ NEWS README TODO
-	}
+src_configure() {
+	econf $(use_enable libarchive)
+}
