@@ -6,7 +6,7 @@ EAPI="4"
 
 EGIT_REPO_URI="git://github.com/nightmorph/libmonome.git"
 
-inherit eutils git-2 multilib
+inherit waf-utils git-2 multilib
 
 DESCRIPTION="A library for easy interaction with monome devices"
 HOMEPAGE="http://github.com/monome/libmonome"
@@ -15,16 +15,12 @@ SRC_URI=""
 LICENSE="as-is"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="python"
+#IUSE="python" #until upstream fixes the broken python bindings
+IUSE=""
 
 DEPEND="media-libs/liblo
-	sys-fs/udev
-	python? ( || ( dev-lang/python:2.7 dev-lang/python:2.6 ) )"
+	sys-fs/udev"
+#	python? ( || ( dev-lang/python:2.7 dev-lang/python:2.6 ) )"
 
 RDEPEND="${DEPEND}
 	dev-util/pkgconfig"
-
-src_configure() {
-	econf $(use_enable python) \
-	--prefix=/usr
-}
