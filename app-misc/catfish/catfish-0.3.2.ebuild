@@ -1,10 +1,10 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header$
+# $Header: $
 
-EAPI="1"
+EAPI="4"
 
-DESCRIPTION="GTK+2 fontend for different search engines (daemons)"
+DESCRIPTION="GTK+2 frontend for different search engines (daemons)"
 HOMEPAGE="http://software.twotoasts.de/index.php?/pages/catfish_summary.html"
 SRC_URI="http://www.twotoasts.de/media/catfish/${P}.tar.gz"
 
