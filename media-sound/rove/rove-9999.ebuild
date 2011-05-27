@@ -4,9 +4,9 @@
 
 EAPI="4"
 
-EGIT_REPO_URI="git://github.com/wrl/rove.git"
+EGIT_REPO_URI="git://github.com/nightmorph/rove.git"
 
-inherit eutils git-2 multilib
+inherit waf-utils git-2
 
 DESCRIPTION="Music performance software for monomes"
 HOMEPAGE="http://github.com/wrl/rove"
