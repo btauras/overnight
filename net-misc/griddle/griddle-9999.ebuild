@@ -18,7 +18,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="+meme"
 
 RDEPEND="dev-python/pybonjour
-	dev-libs/pyOSC
+	dev-python/pyOSC
 	meme? ( dev-python/pygtk )"
 DEPEND=""
 
