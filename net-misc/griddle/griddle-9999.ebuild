@@ -18,11 +18,11 @@ KEYWORDS="~amd64 ~x86"
 IUSE="+meme"
 
 RDEPEND="dev-python/pybonjour
-	media-libs/pyliblo
+	dev-libs/pyOSC
 	meme? ( dev-python/pygtk )"
 DEPEND=""
 
 src_install() {
 	dobin griddle.py
-	use meme && dobin meme.py
+	use meme && dobin meme-osc.py
 }
