@@ -6,7 +6,7 @@ EAPI="4"
 
 EGIT_REPO_URI="git://github.com/nightmorph/libmonome.git"
 
-inherit waf-utils git-2 multilib
+inherit waf-utils git-2
 
 DESCRIPTION="A library for easy interaction with monome devices"
 HOMEPAGE="http://github.com/monome/libmonome"
