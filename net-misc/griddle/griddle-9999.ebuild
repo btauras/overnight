@@ -24,5 +24,13 @@ DEPEND=""
 
 src_install() {
 	dobin griddle.py
-	use meme && dobin meme-osc.py
+	use meme && dobin meme.py
+	dodoc ${PN}-basic.conf ${PN}-mirror.conf ${PN}-splitter.conf
+}
+
+pkg_postinst() {
+	elog "Be sure to read the config examples in"
+	elog "/usr/share/doc/${P}/. You can run griddle"
+	elog "from any directory, but you'll need to have"
+	elog "a config file in your current directory."
 }
