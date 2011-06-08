@@ -12,7 +12,7 @@ EGIT_REPO_URI="git://repo.or.cz/calf.git"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE="debug +dssi +jack +lash +lv2 +ladspa"
 
 RDEPEND="dev-libs/glib:2
