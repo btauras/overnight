@@ -6,4 +6,12 @@
     <email>nightmorph@gmail.com</email>
     <name>Joshua Saddler</name>
   </maintainer>
+<longdescription>
+Graphical sequencer for digital art, using realtime OSC events to control audio and video
+</longdescription>
+<use>
+  <flag name="doc">Install the usage guide/manual</flag>
+  <flag name="examples">Install sample scripts and integration code for PureData, Max/MSP, and Processing</flag>
+  <flag name="jack">Add support for JACK Audio Connection Kit. Required for the realtime MIDI implementation.</flag>
+</use>
 </pkgmetadata>

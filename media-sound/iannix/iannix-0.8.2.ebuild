@@ -4,9 +4,9 @@
 
 EAPI="4"
 
-inherit qt4-r2
+inherit eutils qt4-r2
 
-DESCRIPTION="Graphical sequencer for digital art, using realtime OSC events to control audio and video"
+DESCRIPTION="Graphical sequencer for digital art"
 HOMEPAGE="http://www.iannix.org"
 SRC_URI="http://iannix.org/en/download/${PN}_sources__0_8_2.zip"
 
@@ -14,7 +14,7 @@ RESTRICT="mirror"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="doc examples jack"
+IUSE="doc examples +jack"
 
 S="${WORKDIR}/IanniX"
 
@@ -29,40 +29,39 @@ DEPEND="media-libs/alsa-lib
 #	econf $(use_with jack)
 #}
 
-#src_compile() {
-#	# make amd64 compile
-#	use amd64 && esed_check -i -e "45s|||" \
-#		-e "60s|||" \
-#		-e "61s|||" \
-#		src/network/OSCin/osc/OscReceivedElements.cpp
-#	/usr/bin/qmake || die "qmake failed"
-#	emake || die "make failed"
-#}
+src_install() {
+	dobin IanniX
+	doicon ${FILESDIR}/iannix.png
+	make_desktop_entry IanniX IanniX iannix AudioVideo
+	dodoc Readme.txt
 
-#src_install() {
-#	dobin bin/IanniX
-#	dodoc Readme.txt
-#	make_desktop_entry IanniX "IanniX"
-#	if use doc; then
-#		insinto /usr/share/doc/${P}
-#		doins "${DISTDIR}"/*.pdf
-#	fi
-#	if use examples; then
-#		mv "${WORKDIR}/IanniX Processing Examples" "${D}"/usr/share/doc/"${P}"
-#	fi
-#}
+	if use doc; then
+		docinto Documentation
+		docompress -x /usr/share/doc/${PF}/Documentation
+		dodoc -r Documentation/*
+	fi
+	if use examples; then
+		docinto Examples
+		docompress -x /usr/share/doc/${PF}/Examples
+		dodoc -r ${S}/Examples/*
 
-#pkg_postinst() {
-#	einfo "You can start IanniX with"
-#	einfo ""
-#	einfo "/usr/bin/IanniX"
-#	einfo ""
+		docinto Patches
+		docompress -x /usr/share/doc/${PF}/Patches
+		dodoc -r ${S}/Patches/*
+	fi
+}
 
-#	if use examples; then
-#		einfo "The examples have been installed to /usr/share/doc/${P}"
-#	fi
+pkg_postinst() {
+	elog "Run IanniX with /usr/bin/IanniX"
 
-#	if use doc; then
-#		einfo "For documentation read /usr/share/doc/${P}/IanniX-Tutorial.pdf"
-#	fi
-#}
+	if use examples; then
+		elog "Examples and sample patches for PureData,"
+		elog "Max/MSP, and Processing can be found in:"
+		elog "/usr/share/doc/${PF}/Examples"
+		elog "/usr/share/doc/${PF}/Patches"
+	fi
+	if use doc; then
+		elog "A handy HTML usage guide can be found in"
+		elog "/usr/share/doc/${PF}/Documentation"
+	fi
+}
