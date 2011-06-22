@@ -4,6 +4,17 @@ diff --git a/configure.ac b/configure.ac
 index 83b3240..14ea8fd 100644
 --- a/configure.ac
 +++ b/configure.ac
+@@ -2964,6 +2964,7 @@
+ WINE_CONFIG_MAKEFILE([libs/wine])
+ WINE_CONFIG_MAKEFILE([libs/wpp])
+ WINE_CONFIG_MAKEFILE([loader])
+ WINE_CONFIG_PROGRAM(aspnet_regiis,,[install])
+ WINE_CONFIG_PROGRAM(attrib,install)
++WINE_CONFIG_PROGRAM(bonjour,install)
+ WINE_CONFIG_PROGRAM(cabarc,,[install])
+ WINE_CONFIG_PROGRAM(cacls,install)
+ WINE_CONFIG_PROGRAM(clock,install)
+ WINE_CONFIG_PROGRAM(cmd,install)
 @@ -70,6 +70,7 @@
              [if test "x$withval" = "xno"; then ac_cv_header_AL_al_h=no; ac_cv_header_OpenAL_al_h=no; fi])
  AC_ARG_WITH(opencl,    AS_HELP_STRING([--without-opencl],[do not use OpenCL]),
@@ -66,15 +77,6 @@ index 83b3240..14ea8fd 100644
  WINE_CONFIG_DLL(dplay,,[implib])
  WINE_CONFIG_DLL(dplayx,,[implib])
  WINE_CONFIG_TEST(dlls/dplayx/tests)
-@@ -2694,6 +2694,7 @@
- WINE_CONFIG_MAKEFILE([libs/wine])
- WINE_CONFIG_MAKEFILE([libs/wpp])
- WINE_CONFIG_MAKEFILE([loader])
- WINE_CONFIG_PROGRAM(attrib,install)
-+WINE_CONFIG_PROGRAM(bonjour,install)
- WINE_CONFIG_PROGRAM(cacls,install)
- WINE_CONFIG_PROGRAM(clock,install)
- WINE_CONFIG_PROGRAM(cmd,install)
 
 diff --git a/dlls/dnssd/Makefile.in b/dlls/dnssd/Makefile.in
 new file mode 100644
