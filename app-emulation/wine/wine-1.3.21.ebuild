@@ -99,7 +99,7 @@ DEPEND="${RDEPEND}
 	xinerama? ( x11-proto/xineramaproto )
 	sys-devel/bison
 	sys-devel/flex
-	dns_sd? ( net-dns/avahi[mdnsresponder-compat] )"
+	dns_sd? ( || ( net-dns/avahi[mdnsresponder-compat] net-dns/mDNSResponder ) )"
 
 src_unpack() {
 	if use win64 ; then
