@@ -66,6 +66,15 @@ index 83b3240..14ea8fd 100644
  WINE_CONFIG_DLL(dplay,,[implib])
  WINE_CONFIG_DLL(dplayx,,[implib])
  WINE_CONFIG_TEST(dlls/dplayx/tests)
+@@ -2694,6 +2694,7 @@
+ WINE_CONFIG_MAKEFILE([libs/wine])
+ WINE_CONFIG_MAKEFILE([libs/wpp])
+ WINE_CONFIG_MAKEFILE([loader])
+ WINE_CONFIG_PROGRAM(attrib,install)
++WINE_CONFIG_PROGRAM(bonjour,install)
+ WINE_CONFIG_PROGRAM(cacls,install)
+ WINE_CONFIG_PROGRAM(clock,install)
+ WINE_CONFIG_PROGRAM(cmd,install)
 
 diff --git a/dlls/dnssd/Makefile.in b/dlls/dnssd/Makefile.in
 new file mode 100644
@@ -2263,3 +2272,169 @@ index 0000000..0616a83
 +@ cdecl TXTRecordGetValuePtr(long ptr str long) wine_TXTRecordGetValuePtr
 +@ cdecl TXTRecordGetCount(long ptr) wine_TXTRecordGetCount
 +@ cdecl TXTRecordGetItemAtIndex(long ptr long long str ptr ptr) wine_TXTRecordGetItemAtIndex
+
+diff --git a/programs/bonjour/Makefile.in b/programs/bonjour/Makefile.in
+new file mode 100644
+index 0000000..6d8b9d2
+--- /dev/null
++++ b/programs/bonjour/Makefile.in
+@@ -0,0 +1,13 @@
++EXTRADEFS = -DWINE_NO_UNICODE_MACROS
++TOPSRCDIR = @top_srcdir@
++TOPOBJDIR = ../..
++SRCDIR    = @srcdir@
++VPATH     = @srcdir@
++MODULE    = bonjour.exe
++APPMODE   = -mconsole -municode
++IMPORTS   = advapi32 kernel32
++
++C_SRCS = \
++	main.c
++
++@MAKE_PROG_RULES@
+
+diff --git a/programs/bonjour/main.c b/programs/bonjour/main.c
+new file mode 100644
+index 0000000..28254c7
+--- /dev/null
++++ b/programs/bonjour/main.c
+@@ -0,0 +1,98 @@
++/*
++ * Copyright 2010 Hans Leidekker
++ *
++ * This library is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU Lesser General Public
++ * License as published by the Free Software Foundation; either
++ * version 2.1 of the License, or (at your option) any later version.
++ *
++ * This library is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * Lesser General Public License for more details.
++ *
++ * You should have received a copy of the GNU Lesser General Public
++ * License along with this library; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
++ */
++
++#define WIN32_LEAN_AND_MEAN
++
++#include <windows.h>
++#include "wine/debug.h"
++
++WINE_DEFAULT_DEBUG_CHANNEL(bonjour);
++
++static WCHAR bonjourW[] = {'B','o','n','j','o','u','r','S','e','r','v','i','c','e',0};
++
++static SERVICE_STATUS_HANDLE service_handle;
++static HANDLE stop_event;
++
++static DWORD WINAPI service_handler( DWORD ctrl, DWORD event_type, LPVOID event_data, LPVOID context )
++{
++    SERVICE_STATUS status;
++
++    status.dwServiceType             = SERVICE_WIN32;
++    status.dwControlsAccepted        = SERVICE_ACCEPT_STOP;
++    status.dwWin32ExitCode           = 0;
++    status.dwServiceSpecificExitCode = 0;
++    status.dwCheckPoint              = 0;
++    status.dwWaitHint                = 0;
++
++    switch(ctrl)
++    {
++    case SERVICE_CONTROL_STOP:
++    case SERVICE_CONTROL_SHUTDOWN:
++        WINE_TRACE( "shutting down\n" );
++        status.dwCurrentState     = SERVICE_STOP_PENDING;
++        status.dwControlsAccepted = 0;
++        SetServiceStatus( service_handle, &status );
++        SetEvent( stop_event );
++        return NO_ERROR;
++    default:
++        WINE_FIXME( "got service ctrl %x\n", ctrl );
++        status.dwCurrentState = SERVICE_RUNNING;
++        SetServiceStatus( service_handle, &status );
++        return NO_ERROR;
++    }
++}
++
++static void WINAPI ServiceMain( DWORD argc, LPWSTR *argv )
++{
++    SERVICE_STATUS status;
++
++    WINE_TRACE( "starting service\n" );
++    stop_event = CreateEventW( NULL, TRUE, FALSE, NULL );
++
++    service_handle = RegisterServiceCtrlHandlerExW( bonjourW, service_handler, NULL );
++    if (!service_handle)
++        return;
++
++    status.dwServiceType             = SERVICE_WIN32;
++    status.dwCurrentState            = SERVICE_RUNNING;
++    status.dwControlsAccepted        = SERVICE_ACCEPT_STOP | SERVICE_ACCEPT_SHUTDOWN;
++    status.dwWin32ExitCode           = 0;
++    status.dwServiceSpecificExitCode = 0;
++    status.dwCheckPoint              = 0;
++    status.dwWaitHint                = 10000;
++    SetServiceStatus( service_handle, &status );
++
++    WaitForSingleObject( stop_event, INFINITE );
++
++    status.dwCurrentState     = SERVICE_STOPPED;
++    status.dwControlsAccepted = 0;
++    SetServiceStatus( service_handle, &status );
++    WINE_TRACE( "service stopped\n" );
++}
++
++int wmain( int argc, WCHAR *argv[] )
++{
++    static const SERVICE_TABLE_ENTRYW service_table[] =
++    {
++        { bonjourW, ServiceMain },
++        { NULL, NULL }
++    };
++
++    StartServiceCtrlDispatcherW( service_table );
++    return 0;
++}
+
+diff --git a/tools/wine.inf.in b/tools/wine.inf.in
+index a8b3e6b..db88e6f 100644
+--- a/tools/wine.inf.in
++++ b/tools/wine.inf.in
+@@ -124,17 +124,19 @@ AddReg=\
+ [DefaultInstall.Services]
+ AddService=MountMgr,0x800,MountMgrService
+ AddService=Spooler,0,SpoolerService
+-AddService=TermService,0,TerminalServices
++AddService=Bonjour Service,0,BonjourService
+ 
+ [DefaultInstall.NT.Services]
+ AddService=MountMgr,0x800,MountMgrService
+ AddService=Spooler,0,SpoolerService
+ AddService=TermService,0,TerminalServices
++AddService=Bonjour Service,0,BonjourService
+ 
+ [DefaultInstall.ntamd64.Services]
+ AddService=MountMgr,0x800,MountMgrService
+ AddService=Spooler,0,SpoolerService
+ AddService=TermService,0,TerminalServices
++AddService=Bonjour Service,0,BonjourService
+ 
+ [Strings]
+ MciExtStr="Software\Microsoft\Windows NT\CurrentVersion\MCI Extensions"
+@@ -2985,6 +2987,14 @@ ServiceType=32
+ StartType=3
+ ErrorControl=1
+ 
++[BonjourService]
++Description="Advertise and discover services on the network"
++DisplayName="Bonjour Service"
++ServiceBinary="%11%\bonjour.exe"
++ServiceType=32
++StartType=3
++ErrorControl=1
++
+ [Services]
+ HKLM,%CurrentVersion%\RunServices,"winemenubuilder",2,"%11%\winemenubuilder.exe -a -r"
+ HKLM,"System\CurrentControlSet\Services\VxD\MSTCP",,16
