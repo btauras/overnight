@@ -7,7 +7,7 @@ inherit eutils multilib
 
 DESCRIPTION="TAL VST plugins, precompiled 32bit and 64bit versions"
 HOMEPAGE="http://kunz.corrupt.ch http://sourceforge.net/projects/kxstudio/"
-SRC_URI="mirror://sourceforge/kxstudio/files/VST/tal-plugins_${PV}.tar.gz"
+SRC_URI="http://sourceforge.net/projects/kxstudio/files/VST/tal-plugins_${PV}.tar.gz"
 
 LICENSE="GPL"
 KEYWORDS="~amd64 ~x86"
