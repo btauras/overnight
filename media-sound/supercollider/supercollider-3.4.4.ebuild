@@ -63,7 +63,7 @@ src_compile() {
 	tc-export CC CXX
 	mkdir -p "${D}"
 
-	scons CUSTOMCCFLAGS="${CFLAGS}" CUSTOMCXXFLAGS="${CXXFLAGS}" \
+	escons CUSTOMCCFLAGS="${CFLAGS}" CUSTOMCXXFLAGS="${CXXFLAGS}" \
 		PREFIX="/usr" DESTDIR="${D}" \
 		$(use_scons alsa ALSA) $(use_scons altivec ALTIVEC) $(use_scons curl CURL) \
 		$(use_scons jack AUDIOAPI jack) $(use_scons readline READLINE) \
@@ -76,7 +76,7 @@ src_compile() {
 
 src_install() {
 	# Main install
-	scons install || die "instal failed"
+	escons install || die "install failed"
 
 	# Install our config file
 	insinto /etc/supercollider
