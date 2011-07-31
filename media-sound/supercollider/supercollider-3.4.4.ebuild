@@ -4,7 +4,7 @@
 
 EAPI="3"
 
-inherit elisp-common toolchain-funcs
+inherit elisp-common toolchain-funcs scons-utils
 
 DESCRIPTION="An environment and a programming language for real time audio synthesis."
 HOMEPAGE="http://www.audiosynth.com http://supercollider.sourceforge.net"
@@ -19,7 +19,8 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 
 # lid means linux input device support.
-IUSE="alsa altivec curl debug devel emacs fftw gedit jack lang lid portaudio readline rendezvous sse sse2 strip vim wii X"
+IUSE="+alsa altivec curl debug devel emacs fftw gedit +jack +lang +lid portaudio
++readline sse sse2 strip vim wii X zeroconf"
 
 RDEPEND="media-sound/jack-audio-connection-kit
 	media-libs/alsa-lib
@@ -68,7 +69,7 @@ src_compile() {
 		$(use_scons jack AUDIOAPI jack) $(use_scons readline READLINE) \
 		$(use_scons debug DEBUG) $(use_scons devel DEVELOPMENT) $(use_scons fftw FFTW) \
 		$(use_scons lang LANG) $(use_scons lid LID) $(use_scons wii WII) \
-		$(use_scons rendezvous RENDEZVOUS) $(use_scons emacs SCEL) $(use_scons vim SCVIM) \
+		$(use_scons zeroconf RENDEZVOUS) $(use_scons emacs SCEL) $(use_scons vim SCVIM) \
 		$(use_scons gedit SCED) $(use_scons sse SSE) $(use_scons sse2 SSE2) \
 		$(use_scons X X11) $(use_scons strip STRIP) || die "compilation failed"
 }
