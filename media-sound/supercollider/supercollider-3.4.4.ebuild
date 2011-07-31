@@ -26,7 +26,7 @@ RDEPEND="media-sound/jack-audio-connection-kit
 	media-libs/alsa-lib
 	media-libs/libsndfile
 	fftw? ( sci-libs/fftw )
-	readline? ( sys-libs/readline )
+	readline? ( sys-libs/readline:5 )
 	portaudio? ( media-libs/portaudio )"
 
 DEPEND="${RDEPEND}
