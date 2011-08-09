@@ -2,6 +2,7 @@ This overlay contains random ebuilds written, adapted, or otherwise hacked up by
 me. I usually code stuff here, then send it to Gentoo's Bugzilla for eventual
 inclusion into Portage.
 
-Note that not everything in here may compile, or if it does, it may not run
-correctly. I try to keep the overlay in a working state, but if something
-fails, do let me know. Fixes are gratefully accepted.
+I try to keep the overlay in a working state, but if something fails, do let me
+know. Fixes are gratefully accepted. A lot of the packages in here are related
+to audio/visual creation. These things have to be kept functional at all times,
+so you should be in good shape, whatever you decide to use.
