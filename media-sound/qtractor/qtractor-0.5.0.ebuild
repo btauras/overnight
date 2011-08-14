@@ -14,7 +14,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-IUSE="debug +dssi libsamplerate mad +osc +rubberband vorbis sse zlib"
+IUSE="debug +dssi libsamplerate mad +osc +rubberband vorbis sse +vst zlib"
 
 RDEPEND=">=x11-libs/qt-core-4.2:4
 	|| (
@@ -32,12 +32,17 @@ RDEPEND=">=x11-libs/qt-core-4.2:4
 	osc? ( media-libs/liblo )
 	rubberband? ( media-libs/rubberband )
 	vorbis? ( media-libs/libvorbis )
+	vst? ( media-libs/vst-sdk )
 	zlib? ( sys-libs/zlib )"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
 
 src_configure() {
 	append-flags "-DQT_STYLE_GTK"
+
+	local myconf
+	use vst && myconf="--with-vst=/usr/include/vst24"
+
 	econf \
 		$(use_enable mad libmad) \
 		$(use_enable libsamplerate) \
@@ -48,7 +53,8 @@ src_configure() {
 		$(use_enable rubberband librubberband) \
 		$(use_enable sse) \
 		$(use_enable zlib libz) \
-		$(use_enable debug)
+		$(use_enable debug) \
+		${myconf}
 	eqmake4 qtractor.pro -o qtractor.mak
 }
 
