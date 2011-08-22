@@ -27,7 +27,7 @@ src_prepare() {
 	sed -i "s,CPPFLAGS=',CPPFLAGS=' -I/usr/include/fltk-1.1,"  SConstruct
 
 	cd src/base
-	sed -i "/#define tapeutape_h/ a\ \n#include " tapeutape.h
+	sed -i "/#define tapeutape_h/ a\ \n#include <limits>" tapeutape.h
 }
 
 src_compile() {
