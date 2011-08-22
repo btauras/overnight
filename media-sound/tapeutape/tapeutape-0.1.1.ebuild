@@ -24,7 +24,8 @@ RDEPEND="gui? ( =x11-libs/fltk-1.1.10* )
 
 src_prepare() {
 	epatch "${FILESDIR}"/${P}-install.patch
-	sed -i "s,CPPFLAGS=',CPPFLAGS=' -I/usr/include/fltk-1 ,"  SConstruct
+	sed -i -e "s:CPPFLAGS=' :CPPFLAGS=' -I/usr/include/fltk-1 :g" SConstruct
+	sed -i -e "s:FL/Fl.H:fltk-1/FL/Fl.H:g" SConstruct
 
 	cd src/base
 	sed -i "/#define tapeutape_h/ a\ \n#include <limits>" tapeutape.h
