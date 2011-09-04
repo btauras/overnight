@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>no-herd</herd>
+  <use>
+    <flag name="dssi-vst">Enable support for the dssi-vst wrapper for Windows VSTs. This may allow you to load more plugins than the internal FST implementatino, but dssi-vst has no save support. Festige does, so it's a tradeoff.</flag>
+  </use>
+</pkgmetadata>
