@@ -3,6 +3,6 @@
 <pkgmetadata>
   <herd>no-herd</herd>
   <use>
-    <flag name="dssi-vst">Enable support for the dssi-vst wrapper for Windows VSTs. This may allow you to load more plugins than the internal FST implementatino, but dssi-vst has no save support. Festige does, so it's a tradeoff.</flag>
+    <flag name="dssi-vst">Enable support for the dssi-vst wrapper for Windows VSTs. This may allow you to load more plugins than the internal FST implementation, but dssi-vst has no save support. FST does, so it's a tradeoff. FST uses JACK MIDI, but dssi-vst uses ALSA MIDI.</flag>
   </use>
 </pkgmetadata>
