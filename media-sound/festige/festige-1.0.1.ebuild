@@ -6,7 +6,7 @@ EAPI=4
 
 DESCRIPTION="GUI for FST and dssi-vst, for running Windows VSTs"
 HOMEPAGE="http://festige.sf.net"
-SRC_URI="mirror://sourceforge/project/${PN}/files/${PV}/${P}-src.tar.gz"
+SRC_URI="mirror://sourceforge/project/${PN}/${PV}/${P}-src.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
