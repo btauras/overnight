@@ -7,6 +7,9 @@ know. Fixes are gratefully accepted. A lot of the packages in here are related
 to audio/visual creation. These things have to be kept functional at all times,
 so you should be in good shape, whatever you decide to use.
 
-To install the overlay, run:
+To install the overlay:
 
-# layman -o ‘http://github.com/nightmorph/overnight/raw/master/overnight.xml’ -f -k -a overnight
+# emerge layman
+# layman -o 'http://github.com/nightmorph/overnight/raw/master/overnight.xml' -f -k -a overnight
+
+Now you can search for and emerge any package from the overlay.
