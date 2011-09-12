@@ -33,8 +33,7 @@ DEPEND="${RDEPEND}
 	|| ( ( 	x11-proto/xineramaproto
 			x11-proto/xextproto
 			x11-proto/xproto ) )
-	opengl? ( virtual/opengl )
-	sys-libs/glibc[nptl]"
+	opengl? ( virtual/opengl )"
 
 src_compile() {
 	# demo fails with --as-needed
