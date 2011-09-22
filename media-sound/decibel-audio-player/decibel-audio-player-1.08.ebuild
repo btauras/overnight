@@ -30,9 +30,12 @@ RDEPEND="media-libs/mutagen
 	zeitgeist? ( dev-libs/libzeitgeist )"
 DEPEND="sys-devel/gettext"
 
+src_prepare() {
+	sed -i -e 's/!$(PREFIX)/!$(prefix)/g' Makefile
+}
+
 src_install() {
-	emake DESTDIR="${D}" prefix=/usr \
-		install || die "emake install failed"
+	emake DESTDIR="${D}" prefix=/usr install
 	dodoc doc/ChangeLog || die "dodoc failed"
 }
 
