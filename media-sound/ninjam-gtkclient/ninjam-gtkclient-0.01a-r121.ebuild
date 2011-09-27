@@ -46,17 +46,4 @@ src_install() {
 ### TODO: remove all the QA warnings ###
 
 #* QA Notice: Pre-stripped files found:
-#* /usr/bin/ninjamsrv
-#* /usr/bin/cninjam
-#* /usr/lib/libninjam-common.so
-#* /usr/lib/libninjam-client.so
-#strip: x86_64-pc-linux-gnu-strip --strip-unneeded -R .comment
-#	usr/lib/libninjam-common.a
-#	usr/lib/libninjam-client.a
-# x86_64-pc-linux-gnu-strip:/var/tmp/portage/media-sound/ninjam-cclient-0.01a/image/usr/lib/libninjam-client.a(libninjam-common.a): Unable to recognise the format of file: File format not recognized
-
-#* QA Notice: The following shared libraries lack a SONAME
-#* /usr/lib/libninjam-client.so
-#* /usr/lib/libninjam-common.so
-#removing executable bit: usr/lib/libninjam-client.a
-#removing executable bit: usr/lib/libninjam-common.a
+#* /usr/bin/gninjam
