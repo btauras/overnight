@@ -4,11 +4,14 @@
 
 EAPI=4
 
-inherit eutils toolchain-funcs subversion
+inherit eutils subversion toolchain-funcs
 
 DESCRIPTION="Make music with people via the internet"
 HOMEPAGE="http://www.ninjam.com/"
 ESVN_REPO_URI="https://gninjam.svn.sourceforge.net/svnroot/gninjam/libninjam/trunk"
+# gtk client source, should already be patched to build:
+#SRC_URI="https://launchpad.net/~kxstudio-team/+archive/ppa/+files/gninjam_0.01a%2Bsvn121-1ubuntu0%7Elucid1.tar.gz"
+# needs gtkmm, gconfmm, gettext, pkg-config, WANT_AUTOCONF=:2.5, 
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -18,10 +21,10 @@ IUSE=""
 S="${WORKDIR}"
 
 DEPEND="media-libs/alsa-lib
-		media-libs/libogg
-		media-libs/libvorbis
-		media-sound/jack-audio-connection-kit
-		sys-libs/ncurses"
+	media-libs/libogg
+	media-libs/libvorbis
+	media-sound/jack-audio-connection-kit
+	sys-libs/ncurses"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
