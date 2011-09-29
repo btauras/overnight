@@ -33,19 +33,22 @@ else
 		${SRC_PATCHES}"
 fi
 
-LICENSE="LGPL-2 kilgard"
+# Most of the code is MIT/X11.
+# ralloc is LGPL-3
+# GLES[2]/gl[2]{,ext,platform}.h are SGI-B-2.0
+LICENSE="MIT LGPL-3 SGI-B-2.0"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd ~x86-freebsd ~amd64-linux ~ia64-linux ~x86-linux ~sparc-solaris ~x64-solaris ~x86-solaris"
 
-INTEL_CARDS="i810 i915 i965 intel"
+INTEL_CARDS="i915 i965 intel"
 RADEON_CARDS="r100 r200 r300 r600 radeon"
-VIDEO_CARDS="${INTEL_CARDS} ${RADEON_CARDS} mach64 mga nouveau r128 savage sis vmware tdfx via"
+VIDEO_CARDS="${INTEL_CARDS} ${RADEON_CARDS} nouveau vmware"
 for card in ${VIDEO_CARDS}; do
 	IUSE_VIDEO_CARDS+=" video_cards_${card}"
 done
 
 IUSE="${IUSE_VIDEO_CARDS}
-	bindist +classic d3d debug +egl g3dvl +gallium gbm gles +llvm +nptl openvg pax_kernel pic selinux shared-dricore +shared-glapi vdpau wayland xvmc kernel_FreeBSD"
+	bindist +classic d3d debug +egl g3dvl +gallium gbm gles1 gles2 +llvm +nptl openvg osmesa pax_kernel pic selinux shared-dricore +shared-glapi vdpau wayland xvmc kernel_FreeBSD"
 
 REQUIRED_USE="
 	d3d?    ( gallium )
@@ -60,18 +63,10 @@ REQUIRED_USE="
 	g3dvl? ( || ( vdpau xvmc ) )
 	vdpau? ( g3dvl )
 	xvmc?  ( g3dvl )
-	video_cards_i810?   ( classic )
 	video_cards_i915?   ( classic )
-	video_cards_mach64? ( classic )
-	video_cards_mga?    ( classic )
 	video_cards_r100?   ( classic )
-	video_cards_r128?   ( classic )
 	video_cards_r200?   ( classic )
-	video_cards_savage? ( classic )
-	video_cards_sis?    ( classic )
 	video_cards_vmware? ( gallium )
-	video_cards_tdfx?   ( classic )
-	video_cards_via?    ( classic )
 "
 
 LIBDRM_DEPSTRING=">=x11-libs/libdrm-2.4.24"
@@ -91,15 +86,11 @@ RDEPEND="${EXTERNAL_DEPEND}
 	>=app-admin/eselect-opengl-1.2.2
 	dev-libs/expat
 	gbm? ( sys-fs/udev )
-	x11-libs/libICE
 	>=x11-libs/libX11-1.3.99.901
 	x11-libs/libXdamage
 	x11-libs/libXext
-	x11-libs/libXi
-	x11-libs/libXmu
 	x11-libs/libXxf86vm
 	d3d? ( app-emulation/wine )
-	llvm? ( >=sys-devel/llvm-2.9 )
 	vdpau? ( >=x11-libs/libvdpau-0.4.1 )
 	wayland? ( x11-base/wayland )
 	xvmc? ( x11-libs/libXvMC )
@@ -118,13 +109,13 @@ for card in ${RADEON_CARDS}; do
 done
 
 DEPEND="${RDEPEND}
+	llvm? ( >=sys-devel/llvm-2.9 )
 	=dev-lang/python-2*
 	dev-libs/libxml2[python]
 	dev-util/pkgconfig
 	sys-devel/bison
 	sys-devel/flex
 	x11-misc/makedepend
-	x11-proto/inputproto
 	>=x11-proto/xextproto-7.0.99.1
 	x11-proto/xf86driproto
 	x11-proto/xf86vidmodeproto
@@ -166,24 +157,9 @@ src_prepare() {
 	# fix for hardened pax_kernel, bug 240956
 	[[ ${PV} != 9999* ]] && epatch "${FILESDIR}"/glx_ro_text_segm.patch
 
-	# FreeBSD 6.* doesn't have posix_memalign().
-	if [[ ${CHOST} == *-freebsd6.* ]]; then
-		sed -i \
-			-e "s/-DHAVE_POSIX_MEMALIGN//" \
-			configure.ac || die
-	fi
 	# Solaris needs some recent POSIX stuff in our case
 	if [[ ${CHOST} == *-solaris* ]] ; then
 		sed -i -e "s/-DSVR4/-D_POSIX_C_SOURCE=200112L/" configure.ac || die
-		sed -i -e 's/uint/unsigned int/g' src/egl/drivers/glx/egl_glx.c || die
-	fi
-
-	# In order for mesa to complete it's build process we need to use a tool
-	# that it compiles. When we cross compile this clearly does not work
-	# so we require mesa to be built on the host system first. -solar
-	if tc-is-cross-compiler; then
-		sed -i -e "s#^GLSL_CL = .*\$#GLSL_CL = glsl_compiler#g" \
-			"${S}"/src/mesa/shader/slang/library/Makefile || die
 	fi
 
 	base_src_prepare
@@ -199,23 +175,17 @@ src_configure() {
 		driver_enable swrast
 
 	# Intel code
-		driver_enable video_cards_i810 i810
 		driver_enable video_cards_i915 i915
 		driver_enable video_cards_i965 i965
-			if ! use video_cards_i810 && \
-				! use video_cards_i915 && \
+			if ! use video_cards_i915 && \
 				! use video_cards_i965; then
-			driver_enable video_cards_intel i810 i915 i965
+			driver_enable video_cards_intel i915 i965
 		fi
 
 		# Nouveau code
 		driver_enable video_cards_nouveau nouveau
 
 		# ATI code
-		driver_enable video_cards_mach64 mach64
-		driver_enable video_cards_mga mga
-		driver_enable video_cards_r128 r128
-
 		driver_enable video_cards_r100 radeon
 		driver_enable video_cards_r200 r200
 		driver_enable video_cards_r300 r300
@@ -226,19 +196,8 @@ src_configure() {
 				! use video_cards_r600; then
 			driver_enable video_cards_radeon radeon r200 r300 r600
 		fi
-
-		driver_enable video_cards_savage savage
-		driver_enable video_cards_sis sis
-		driver_enable video_cards_tdfx tdfx
-		driver_enable video_cards_via unichrome
 	fi
 
-	myconf+="
-		$(use_enable !bindist texture-float)
-		$(use_enable gles gles1)
-		$(use_enable gles gles2)
-		$(use_enable egl)
-	"
 	if use egl; then
 		myconf+="
 			--with-egl-platforms=x11$(use wayland && echo ",wayland")$(use gbm && echo ",drm")
@@ -252,8 +211,8 @@ src_configure() {
 	fi
 	if use gallium; then
 		myconf+="
-			--with-state-trackers=glx,dri$(use egl && echo ",egl")$(use openvg && echo ",vega")$(use d3d && echo ",d3d1x")
-			$(use_enable g3dvl)
+			$(use_enable d3d d3d1x)
+			$(use_enable g3dvl gallium-g3dvl)
 			$(use_enable llvm gallium-llvm)
 			$(use_enable openvg)
 			$(use_enable vdpau)
@@ -284,16 +243,19 @@ src_configure() {
 		"
 	fi
 
-	# --with-driver=dri|xlib|osmesa || do we need osmesa?
 	econf \
 		--disable-option-checking \
-		--with-driver=dri \
-		--disable-glut \
-		--without-demos \
+		--enable-dri \
+		--enable-glx \
 		--enable-xcb \
+		$(use_enable !bindist texture-float) \
 		$(use_enable debug) \
+		$(use_enable egl) \
 		$(use_enable gbm) \
+		$(use_enable gles1) \
+		$(use_enable gles2) \
 		$(use_enable nptl glx-tls) \
+		$(use_enable osmesa) \
 		$(use_enable !pic asm) \
 		$(use_enable shared-dricore) \
 		$(use_enable shared-glapi) \
@@ -313,12 +275,6 @@ src_install() {
 	if ! tc-is-cross-compiler; then
 		dobin "${S}"/src/glsl/glsl_compiler
 	fi
-	# Remove redundant headers
-	# GLUT thing
-	rm -f "${ED}"/usr/include/GL/glut*.h || die "Removing glut include failed."
-	# Glew includes
-	rm -f "${ED}"/usr/include/GL/{glew,glxew,wglew}.h \
-		|| die "Removing glew includes failed."
 
 	# Install config file for eselect mesa
 	insinto /usr/share/mesa
@@ -391,6 +347,20 @@ pkg_postinst() {
 	if use !bindist; then
 		elog "USE=\"bindist\" was not set. Potentially patent encumbered code was"
 		elog "enabled. Please see patents.txt for an explanation."
+	fi
+
+	local using_radeon r_flag
+	for r_flag in ${RADEON_CARDS}; do
+		if use video_cards_${r_flag}; then
+			using_radeon=1
+			break
+		fi
+	done
+
+	if [[ ${using_radeon} = 1 ]] && ! has_version media-libs/libtxc_dxtn; then
+		elog "Note that in order to have full S3TC support, it is necessary to install"
+		elog "media-libs/libtxc_dxtn as well. This may be necessary to get nice"
+		elog "textures in some apps, and some others even require this to run."
 	fi
 }
 

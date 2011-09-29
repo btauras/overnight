@@ -6,4 +6,7 @@
 	<name>Joshua Saddler</name>
 </maintainer>
 <herd>x11</herd>
+<use>
+<flag name="libkms">Enable building of libkms, a library for applications to interface with KMS</flag>
+</use>
 </pkgmetadata>
