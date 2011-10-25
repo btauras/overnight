@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>no-herd</herd>
+  <use>
+    <flag name="lv2">Add support for LADSPA V2 plugins</flag>
+	<flag name="vst">Add support for native Linux VST plugins. Won't work for Windows plugins.
+  </use>
+</pkgmetadata>
