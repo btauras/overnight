@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>no-herd</herd>
+  <use>
+    <flag name="lash">Builds the LASH compatibility library for old
+	applications that only support LASH</flag>
+	<flag name="python">Build Python bindings for the LASH
+	compatibility library; requires USE="lash"</flag>
+  </use>
+</pkgmetadata>
