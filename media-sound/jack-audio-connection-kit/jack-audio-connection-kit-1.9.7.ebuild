@@ -28,7 +28,7 @@ S="${WORKDIR}/jack-${PV}"
 src_compile() {
 	local myconf="--prefix=/usr --destdir=${D}"
 	use alsa && myconf="${myconf} --alsa"
-	use dbus && myconf="${myconf} --dbus"
+	use dbus && myconf="${myconf} --dbus --classic"
 	! use dbus && myconf="${myconf} --classic"
 	use debug && myconf="${myconf} -d debug"
 	use doc && myconf="${myconf} --doxygen"
