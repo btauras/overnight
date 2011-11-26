@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=4
-inherit git-2 multilib
+inherit git-2
 
 DESCRIPTION="Session management system for JACK applications"
 HOMEPAGE="http://ladish.org/"
@@ -29,7 +29,6 @@ RDEPEND="dev-lang/python
 src_configure() {
 	./waf configure \
 		--prefix=/usr \
-		--libdir="/usr/$(get_libdir)" \
 		$(use debug && echo "--debug") \
 		$(use lash && echo "--enable-liblash") \
 		$(use python && echo "--enable-liblash --enable-pylash") \
