@@ -11,7 +11,7 @@ inherit distutils fdo-mime python
 
 DESCRIPTION="OpenShot Video Editor is a non-linear video editor"
 HOMEPAGE="http://www.openshotvideo.com"
-SRC_URI="http://launchpad.net/openshot/1.3/${PV}/+download/${P}.tar.gz"
+SRC_URI="http://launchpad.net/openshot/1.4/${PV}/+download/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
