@@ -4,7 +4,8 @@
 
 EAPI="4"
 
-EGIT_REPO_URI="git://github.com/artfwo/griddle.git"
+#EGIT_REPO_URI="git://github.com/artfwo/griddle"
+EGIT_REPO_URI="git://github.com/TheAlphaNerd/griddle"
 
 inherit git-2
 
@@ -25,7 +26,7 @@ DEPEND=""
 src_install() {
 	dobin griddle.py
 	use meme && dobin meme.py
-	dodoc ${PN}-basic.conf ${PN}-mirror.conf ${PN}-splitter.conf
+	dodoc ${PN}-basic.conf ${PN}-mirror.conf ${PN}-splitter.conf ${PN}-snoopy.conf
 }
 
 pkg_postinst() {
