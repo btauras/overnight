@@ -23,7 +23,7 @@ stk? ( http://ccrma.stanford.edu/software/stk/release/stk-${STK_VERSION}.tar.gz 
 LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="+alsa beats csoundac doc +double-precision dssi editor examples fluidsynth gui jack java lua mp3 musicxml newparser osc p5glove pd +python stk tcl wiimote"
+IUSE="+alsa beats csoundac -doc +double-precision dssi editor examples fluidsynth gui jack java lua mp3 musicxml newparser osc p5glove pd +python stk tcl wiimote"
 
 RDEPEND=">=media-libs/libsndfile-1.0.13
 	alsa? ( media-libs/alsa-lib )
