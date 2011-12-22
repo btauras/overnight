@@ -54,7 +54,7 @@ REQUIRED_USE="
 	d3d?    ( gallium )
 	g3dvl?  ( gallium )
 	llvm?   ( gallium )
-	openvg? ( gallium )
+	openvg? ( egl gallium )
 	egl? ( shared-glapi )
 	gallium? (
 		video_cards_r300?   ( x86? ( llvm ) amd64? ( llvm ) )
@@ -63,13 +63,15 @@ REQUIRED_USE="
 	g3dvl? ( || ( vdpau xvmc ) )
 	vdpau? ( g3dvl )
 	xvmc?  ( g3dvl )
-	video_cards_i915?   ( classic )
+	video_cards_i965?   ( classic )
 	video_cards_r100?   ( classic )
 	video_cards_r200?   ( classic )
+	video_cards_r300?   ( gallium )
+	video_cards_r600?   ( gallium )
 	video_cards_vmware? ( gallium )
 "
 
-LIBDRM_DEPSTRING=">=x11-libs/libdrm-2.4.24"
+LIBDRM_DEPSTRING=">=x11-libs/libdrm-2.4.27"
 # not a runtime dependency of this package, but dependency of packages which
 # depend on this package, bug #342393
 EXTERNAL_DEPEND="
@@ -138,6 +140,8 @@ pkg_setup() {
 
 	# recommended by upstream
 	append-flags -ffast-math
+	# workaround toc-issue wrt #386545
+	use ppc64 && append-flags -mminimal-toc
 }
 
 src_unpack() {
@@ -188,13 +192,9 @@ src_configure() {
 		# ATI code
 		driver_enable video_cards_r100 radeon
 		driver_enable video_cards_r200 r200
-		driver_enable video_cards_r300 r300
-		driver_enable video_cards_r600 r600
 		if ! use video_cards_r100 && \
-				! use video_cards_r200 && \
-				! use video_cards_r300 && \
-				! use video_cards_r600; then
-			driver_enable video_cards_radeon radeon r200 r300 r600
+				! use video_cards_r200; then
+			driver_enable video_cards_radeon radeon r200
 		fi
 	fi
 
@@ -222,10 +222,8 @@ src_configure() {
 		gallium_enable video_cards_vmware svga
 		gallium_enable video_cards_nouveau nouveau
 		gallium_enable video_cards_i915 i915
-		gallium_enable video_cards_i965 i965
-		if ! use video_cards_i915 && \
-				! use video_cards_i965; then
-			gallium_enable video_cards_intel i915 i965
+		if ! use video_cards_i915; then
+			gallium_enable video_cards_intel i915
 		fi
 
 		gallium_enable video_cards_r300 r300
