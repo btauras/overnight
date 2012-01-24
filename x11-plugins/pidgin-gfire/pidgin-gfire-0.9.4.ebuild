@@ -1,8 +1,10 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI="3"
+
+inherit eutils
 
 DESCRIPTION="An Xfire plugin for Pidgin"
 HOMEPAGE="http://gfire.sourceforge.net/"
@@ -20,6 +22,12 @@ RDEPEND="dbus? ( dev-libs/dbus-glib )
 
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
+
+src_prepare() {
+	unpack ${A}
+	cd "${S}"
+	sed -i -e 's/NotifyNotification *notification =	notify_notification_new(p_title, p_msg, NULL, NULL);/NotifyNotification	*notification = notify_notification_new(p_title, p_msg, NULL);/g' -e 's/notification = notify_notification_new(p_title, p_msg, NULL, NULL);/notification = notify_notification_new(p_title, p_msg, NULL);/g' src/gf_util.c
+}
 
 src_configure() {
 	econf \
