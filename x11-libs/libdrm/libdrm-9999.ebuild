@@ -21,7 +21,7 @@ for card in ${VIDEO_CARDS}; do
 	IUSE_VIDEO_CARDS+=" video_cards_${card}"
 done
 
-IUSE="${IUSE_VIDEO_CARDS} +libkms"
+IUSE="${IUSE_VIDEO_CARDS} libkms"
 RESTRICT="test" # see bug #236845
 
 RDEPEND="dev-libs/libpthread-stubs
@@ -30,7 +30,7 @@ DEPEND="${RDEPEND}
 	>=x11-libs/libpciaccess-0.10"
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-2.4.23-solaris.patch
+	"${FILESDIR}"/${PN}-2.4.28-solaris.patch
 )
 
 pkg_setup() {
@@ -44,4 +44,11 @@ pkg_setup() {
 	)
 
 	xorg-2_pkg_setup
+}
+
+src_prepare() {
+	# tests are restricted, no point in building them
+	sed -ie 's/tests //' ${S}/Makefile.am
+
+	xorg-2_src_prepare
 }
