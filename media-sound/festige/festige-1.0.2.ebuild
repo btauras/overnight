@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -13,7 +13,8 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="dssi-vst"
 
-DEPEND="app-emulation/wine
+DEPEND="app-emulation/emul-linux-x86-gtklibs
+	app-emulation/wine
 	dev-lang/python:2.7
 	dev-python/PyQt4
 	x11-libs/gtk+:2
