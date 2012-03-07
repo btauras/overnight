@@ -8,7 +8,7 @@ inherit eutils multilib toolchain-funcs
 
 DESCRIPTION="LADSPA effect plugins from Invada Studio"
 HOMEPAGE="http://www.invadarecords.com/Downloads.php?ID=00000263"
-SRC_URI="http://www.invadarecords.com/downloads/${PN}_${PV}-1.tar.gz"
+SRC_URI="https://launchpad.net/invada-studio/ladspa/0.3/+download/${PN}_${PV}-nopkg.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
