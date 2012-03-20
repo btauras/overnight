@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -20,6 +20,7 @@ RDEPEND="dev-libs/glib:2
 	x11-libs/gtk+:2
 	gnome-base/libglade:2.0
 	media-sound/fluidsynth
+	sci-libs/fftw:2.1
 	dssi? ( media-libs/dssi )
 	lash? ( media-sound/lash )
 	jack? ( media-sound/jack-audio-connection-kit )
