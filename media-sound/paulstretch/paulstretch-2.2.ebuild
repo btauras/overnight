@@ -31,6 +31,7 @@ S="${WORKDIR}/${P}-2"
 
 src_prepare() {
 	epatch "${FILESDIR}/fix-mp3inputs.patch"
+	sed -i -e "s:-lmxml:-lmxml -lz:g" compile_linux*.sh
 }
 
 src_compile() {
