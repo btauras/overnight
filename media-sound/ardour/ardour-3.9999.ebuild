@@ -41,7 +41,8 @@ RDEPEND="dev-cpp/glibmm:2
 	x11-libs/cairo
 	virtual/libusb:0
 	curl? ( net-misc/curl )
-	lv2? ( media-libs/lilv )"
+	lv2? ( media-libs/lilv
+			media-libs/suil )"
 DEPEND="${RDEPEND}
 	dev-libs/boost
 	dev-util/pkgconfig
