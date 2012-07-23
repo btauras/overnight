@@ -32,6 +32,7 @@ src_prepare() {
 	unpack ${A}
 	cd "${S}"
 	epatch "${FILESDIR}/${PN}-0.8-Makefile.patch"
+	epatch "${FILESDIR}/${PN}.cpp.patch"
 	# fixup g++/cxxflags
 	sed -i -e "s:-Ivestige -Wall -fPIC:${CXXFLAGS} -Ivestige -Wall -fPIC:" \
 		-e 's@\([[:blank:]]\)g++\([[:blank:]]\)@\1\$(CXX)\2@g' Makefile

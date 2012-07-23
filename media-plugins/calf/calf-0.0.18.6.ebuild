@@ -4,16 +4,17 @@
 
 EAPI="4"
 
-inherit base git-2 multilib autotools
+inherit base multilib autotools
 
 DESCRIPTION="Instruments and effect plugins"
 HOMEPAGE="http://calf.sf.net/"
-EGIT_REPO_URI="git://repo.or.cz/calf.git"
+SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
+RESTRICT="mirror"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="debug +dssi +jack +lash +lv2 +ladspa"
+IUSE="debug dssi +jack ladspa +lash +lv2"
 
 RDEPEND="dev-libs/glib:2
 	dev-libs/expat
@@ -28,18 +29,18 @@ RDEPEND="dev-libs/glib:2
 	ladspa? ( media-libs/ladspa-sdk )"
 DEPEND="${DEPEND}"
 
+DOCS="AUTHORS ChangeLog NEWS README TODO"
+
 src_prepare() {
 	# CXXFLAGS contains -O3
-	sed -i -e "s/-O3//" configure.ac || die
+	sed -i -e "s/-O3//" configure || die
 }
 
 src_configure() {
-	NOCONFIGURE=1 ./autogen.sh
 	econf --with-ladspa-dir="/usr/$(get_libdir)/ladspa" \
 		--with-dssi-dir="/usr/$(get_libdir)/dssi" \
 		--with-lv2-dir="/usr/$(get_libdir)/lv2" \
 		$(use_enable debug) \
-		$(use_with dssi) \
 		$(use_with ladspa) \
 		$(use_with lv2) \
 		|| die
@@ -53,4 +54,6 @@ src_install() {
 	emake DESTDIR="${D}" install
 	unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 	dodoc AUTHORS ChangeLog NEWS README TODO
+	# workaround sandbox violation
+	rm -f "${D}/usr/share/icons/hicolor/icon-theme.cache"
 }
