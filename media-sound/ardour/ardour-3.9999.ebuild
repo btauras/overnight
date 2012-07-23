@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -33,6 +33,7 @@ RDEPEND="dev-cpp/glibmm:2
 	media-libs/libsndfile
 	media-libs/raptor:2
 	>=media-libs/rubberband-1.6.0
+	>=media-libs/suil-0.6.4
 	media-libs/vamp-plugin-sdk
 	>=media-sound/jack-audio-connection-kit-0.120
 	sci-libs/fftw:3.0
