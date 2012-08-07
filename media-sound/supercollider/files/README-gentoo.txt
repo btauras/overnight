@@ -51,6 +51,9 @@ sounds/ and synthdefs/.  (Technically, you could alternatively start
 sclang with the "-d" option to select a different directory
 containing those two subdirs.)
 
+Make sure that you've created ~/.local/share/SuperCollider/ before attempting to
+run SC for the first time.
+
 Other Documentation in This Directory
 -------------------------------------
 Included in the SuperCollider source tree are quite a few .rtf files
