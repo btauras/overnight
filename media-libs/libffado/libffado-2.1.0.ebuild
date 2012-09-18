@@ -2,12 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
-inherit eutils multilib subversion scons-utils
+EAPI="4"
+inherit eutils multilib scons-utils
+RESTRICT="mirror"
 
 DESCRIPTION="Library for accessing BeBoB IEEE1394 devices"
 HOMEPAGE="http://www.ffado.org"
-ESVN_REPO_URI="http://subversion.ffado.org/ffado/trunk/libffado"
+SRC_URI="http://www.ffado.org/files/${P}.tgz"
 
 LICENSE="GPL-2"
 KEYWORDS="~amd64"
