@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit eutils multilib scons-utils subversion
+inherit eutils multilib subversion scons-utils
 
 DESCRIPTION="Library for accessing BeBoB IEEE1394 devices"
 HOMEPAGE="http://www.ffado.org"
@@ -14,7 +14,7 @@ ESVN_REPO_URI="http://subversion.ffado.org/ffado/trunk/libffado"
 LICENSE="GPL-2"
 KEYWORDS="~amd64"
 SLOT="0"
-IUSE="+dbus-server debug +qt4"
+IUSE="debug +qt4 +dbus-server"
 
 RDEPEND="dev-cpp/libxmlpp:2.6
 	dev-libs/libconfig
@@ -31,18 +31,12 @@ RDEPEND="dev-cpp/libxmlpp:2.6
 
 DEPEND="${RDEPEND}"
 
-src_configure() {
+src_compile () {
 	local myconf=""
 
 	use debug \
 		&& myconf="${myconf} DEBUG=True ENABLE_OPTIMIZATIONS=False" \
 		|| myconf="${myconf} DEBUG=False ENABLE_OPTIMIZATIONS=True"
-}
-
-## workaround: buildprocess calls "jackd --version",
-## which accesses /dev/snd/control*
-src_compile() {
-	addpredict /dev/snd
 
 	escons \
 		PREFIX=/usr \
@@ -52,7 +46,7 @@ src_compile() {
 
 src_install () {
 	escons DESTDIR="${D}" WILL_DEAL_WITH_XDG_MYSELF="True" install || die
-	dodoc AUTHORS ChangeLog README
+	dodoc AUTHORS ChangeLog NEWS README TODO
 
 	if use qt4; then
 		newicon "support/xdg/hi64-apps-ffado.png" "ffado.png"
