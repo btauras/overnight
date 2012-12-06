@@ -1,10 +1,10 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="4"
 
-EGIT_REPO_URI="git://github.com/nightmorph/libmonome.git"
+EGIT_REPO_URI="git://github.com/monome/libmonome"
 
 inherit waf-utils git-2
 
