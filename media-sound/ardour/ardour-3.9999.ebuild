@@ -65,7 +65,6 @@ src_configure() {
 		--prefix=/usr \
 		--freedesktop \
 		--noconfirm \
-		$(use curl && echo "--freesound") \
 		$(use debug && echo "--debug" || echo "--optimize") \
 		$(use lv2 && echo "--lv2") \
 		$(use nls && echo "--nls" || echo "--no-nls") \
