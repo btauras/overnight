@@ -10,7 +10,7 @@ HOMEPAGE="http://www.notam02.no/arkiv/src"
 SRC_URI="http://www.notam02.no/arkiv/src/${P}.tar.gz"
 RESTRICT="mirror"
 
-LICENSE="GPL-2 BSD"
+LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="gtk"
