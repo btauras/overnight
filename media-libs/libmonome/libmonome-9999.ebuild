@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -15,12 +15,11 @@ SRC_URI=""
 LICENSE="as-is"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-#IUSE="python" #until upstream fixes the broken python bindings
-IUSE=""
+IUSE="python"
 
 DEPEND="media-libs/liblo
-	sys-fs/udev"
-#	python? ( || ( dev-lang/python:2.7 dev-lang/python:2.6 ) )"
+	sys-fs/udev
+	python? ( || ( dev-lang/python:2.7 dev-lang/python:2.6 ) )"
 
 RDEPEND="${DEPEND}
 	dev-util/pkgconfig"
