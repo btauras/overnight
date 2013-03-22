@@ -7,6 +7,7 @@ EAPI="4"
 EGIT_REPO_URI="git://github.com/monome/libmonome"
 
 inherit waf-utils git-2
+NO_WAF_LIBDIR=yes
 
 DESCRIPTION="A library for easy interaction with monome devices"
 HOMEPAGE="http://github.com/monome/libmonome"
