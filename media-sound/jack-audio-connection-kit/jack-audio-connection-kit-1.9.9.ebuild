@@ -23,7 +23,7 @@ DEPEND="${RDEPEND}
         dbus? ( sys-apps/dbus )
         ieee1394? ( media-libs/libffado )"
 
-S="${WORKDIR}/jack-${PV}/jack-${PV}"
+S="${WORKDIR}/jack-${PV}/jack-${PV}.5"
 
 src_compile() {
 	local myconf="--prefix=/usr --destdir=${D}"
