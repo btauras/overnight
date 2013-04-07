@@ -1,0 +1,67 @@
+--- Makefile.orig	2012-12-12 12:00:16.000000000 -0800
++++ Makefile	2013-04-07 13:12:25.000000000 -0700
+@@ -54,7 +54,7 @@
+ 
+ PD_INCLUDE = $(PD_PATH)/include
+ # where to install the library, overridden below depending on platform
+-prefix = /usr/local
++prefix = /usr
+ libdir = $(prefix)/lib
+ pkglibdir = $(libdir)/pd-externals
+ objectsdir = $(pkglibdir)
+@@ -87,7 +87,7 @@
+     OPT_CFLAGS = -fast -funroll-loops -fomit-frame-pointer
+ 	CFLAGS := $(IPHONE_CFLAGS) $(OPT_CFLAGS) $(CFLAGS)
+     LDFLAGS += -arch armv6 -bundle -undefined dynamic_lookup $(ISYSROOT)
+-    LUACFLAGS += -I/usr/include/lua # lua is named differently on every platform, check this and change it to fit
++    LUACFLAGS += -I/usr/include # lua is named differently on every platform, check this and change it to fit
+     LIBS += -llua  # lua is named differently on every platform, check this and change it to fit
+     LIBS += -lc 
+     STRIP = strip -x
+@@ -109,7 +109,7 @@
+     LDFLAGS += $(FAT_FLAGS) -bundle -undefined dynamic_lookup -L/sw/lib
+     # if the 'pd' binary exists, check the linking against it to aid with stripping
+     LDFLAGS += $(shell test -e $(PD_PATH)/bin/pd && echo -bundle_loader $(PD_PATH)/bin/pd)
+-    LUACFLAGS += -I/usr/include/lua # lua is named differently on every platform, check this and change it to fit
++    LUACFLAGS += -I/usr/include # lua is named differently on every platform, check this and change it to fit
+     LIBS += -llua  # lua is named differently on every platform, check this and change it to fit
+     LIBS += -lc 
+     STRIP = strip -x
+@@ -135,7 +135,7 @@
+   OPT_CFLAGS = -O6 -funroll-loops -fomit-frame-pointer
+   CFLAGS += 
+   LDFLAGS += -Wl,--export-dynamic -shared
+-  LUACFLAGS += -I/usr/include/lua # lua is named differently on every platform, check this and change it to fit
++  LUACFLAGS += -I/usr/include # lua is named differently on every platform, check this and change it to fit
+   LIBS += -llua  # lua is named differently on every platform, check this and change it to fit
+   LIBS += -lc
+   STRIP := $(NDK_TOOLCHAIN_BASE)/bin/arm-linux-androideabi-strip \
+@@ -151,8 +151,8 @@
+   OPT_CFLAGS = -O6 -funroll-loops -fomit-frame-pointer
+   CFLAGS += -fPIC -threepic
+   LDFLAGS += -Wl,--export-dynamic  -shared -fPIC
+-  LUACFLAGS += -I/usr/include/lua5.1 # lua is named differently on every platform, check this and change it to fit
+-  LIBS += -llua5.1  # lua is named differently on every platform, check this and change it to fit
++  LUACFLAGS += -I/usr/include # lua is named differently on every platform, check this and change it to fit
++  LIBS += -llua  # lua is named differently on every platform, check this and change it to fit
+   LIBS += -lc
+   STRIP = strip --strip-unneeded -R .note -R .comment
+   DISTBINDIR=$(DISTDIR)-$(OS)-$(shell uname -m)
+@@ -168,7 +168,7 @@
+   CFLAGS += -fPIC
+   LDFLAGS += -Wl,--export-dynamic  -shared -fPIC
+   LIBS += -lc
+-  LUACFLAGS += -I/usr/include/lua # lua is named differently on every platform, check this and change it to fit
++  LUACFLAGS += -I/usr/include # lua is named differently on every platform, check this and change it to fit
+   LIBS += -llua  # lua is named differently on every platform, check this and change it to fit
+   STRIP = strip --strip-unneeded -R .note -R .comment
+   DISTBINDIR=$(DISTDIR)-$(OS)-$(shell uname -m)
+@@ -184,7 +184,7 @@
+   CFLAGS += -fPIC
+   LDFLAGS += -Wl,--export-dynamic  -shared -fPIC
+   LIBS += -lc
+-  LUACFLAGS += -I/usr/include/lua # lua is named differently on every platform, check this and change it to fit
++  LUACFLAGS += -I/usr/include # lua is named differently on every platform, check this and change it to fit
+   LIBS += -llua  # lua is named differently on every platform, check this and change it to fit
+   STRIP = strip --strip-unneeded -R .note -R .comment
+   DISTBINDIR=$(DISTDIR)-$(OS)-$(shell uname -m)

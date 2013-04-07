@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 
 inherit autotools eutils flag-o-matic versionator
 
@@ -17,12 +17,13 @@ KEYWORDS="~amd64 ~x86"
 Linux="+hid +pdp +gem2pdp +iem16"
 # oscx is deprecated by the mrpeach external
 externals="-oscx +zexy"
-IUSE_PD_EXTERNALS="apple arraysize +bassemu~ +boids +bsaylor chaos +creb +cxc
-	+earplug~ +ekext +ext13 +flashserver +flatgui +flib +freeverb~ +ggee grh
-	+hcs +iem +iemlib jasch_lib +loaders log +mapping +markex +maxlib miXed
+IUSE_PD_EXTERNALS="apple arraysize +bassemu +boids +bsaylor chaos +creb +cxc
+	+earplug +ekext +ext13 +flatgui +freeverb +ggee grh
+	+hcs +iemlib jasch_lib +loaders-hexloader +loaders-libdir +loaders-tclpd
+	+loaders-pdlua log +mapping +markex +maxlib miXed
 	+mjlib +moocow +moonlib +motex +mrpeach +pan +pdcontainer +pddp +pdogg
-	pduino +plugin~ +pmpd +sigpack +smlib testtools +tof unauthorized +vanilla
-	+vbap +windowing"
+	pduino +plugin +pmpd +sigpack +smlib testtools +tof unauthorized +vanilla
+	+vbap +windowinga"
 IUSE="+alsa debug fftw +jack portaudio
 	${IUSE_PD_EXTERNALS} ${Linux} ${externals}"
 
@@ -36,7 +37,7 @@ DEPEND="dev-lang/tcl
 	fftw? ( sci-libs/fftw )
 	hcs? ( dev-libs/libusb )
 	jack? ( media-sound/jack-audio-connection-kit )
-	loaders? ( dev-lang/lua )
+	loaders-pdlua? ( dev-lang/lua )
 	pdogg? ( media-libs/libogg 
 		media-libs/libvorbis )
 	portaudio? ( media-libs/portaudio )
@@ -47,12 +48,16 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/${PN}/pd/"
 
 src_prepare() {
+	#cd "${WORKDIR}/${PN}/externals/loaders/pdlua"
+	#epatch "${FILESDIR}/Makefile.patch"
 	cd "${S}/pd/"
+	#cd "${S}"
 	eautoreconf
 }
 
 src_configure() {
 	cd "${S}/pd/src"
+	#cd "${S}/src"
 	econf \
 		$(use_enable alsa) \
 		$(use_enable jack) \
@@ -62,7 +67,8 @@ src_configure() {
 }
 
 src_compile() {
-	cd "${S}/pd/src"
+	cd "${S}/src"
+	#cd "${S}/pd/src"
 	emake
 
 	# build externals in $IUSE
@@ -86,16 +92,17 @@ src_compile() {
 
 src_install() {
 	# install pd-extended
-	cd "${S}/pd/src"
-	emake DESTDIR="${D}" prefix="/usr" install
-
+	#cd "${S}/pd/src"
+	cd "${S}/src"
+	emake DESTDIR="${D}" prefix="/usr" install || die "initial install failed"
+	
+	cd "${S}/src"
 	# install private headers for developers
-	insinto /usr/include
-	doins "${S}/pd/src/m_pd.h" "${S}/pd/src/m_imp.h" "${S}/pd/src/g_canvas.h" \ 
-		"${S}/pd/src/t_tk.h" "${S}/pd/src/s_stuff.h" "${S}/pd/src/g_all_guis.h"
+	insinto /usr/include/pdextended || die "can't insinto"
+	doheader m_pd.h m_imp.h g_canvas.h s_stuff.h g_all_guis.h || die "no doheader"
 
 	# install externals
-	cd "${WORKDIR}/${PN}/externals"
+	cd "../../externals"
 	for external_useflag in ${IUSE_PD_EXTERNALS}; do
 		local external=${external_useflag#[+-]}
 		if use ${external}; then
