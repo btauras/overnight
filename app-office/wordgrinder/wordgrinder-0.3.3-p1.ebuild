@@ -13,7 +13,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-RDEPEND="dev-libs/luafilesystem
+RDEPEND="dev-lua/luafilesystem
 	sys-libs/ncurses"
 DEPEND="${RDEPEND}"
 
